@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base target="_top">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #fcfcf4; padding: 15px; font-family: 'Arial', sans-serif; }
+        .brand-header { background-color: #ffffff; border: 4px solid red; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .brand-name { font-size: 2.2rem; color: yellow; font-weight: 900; text-shadow: -2px -2px 0 #ff0000, 2px -2px 0 #ff0000, -2px 2px 0 #ff0000, 2px 2px 0 #ff0000; letter-spacing: 1px; margin: 0; text-transform: uppercase; }
+        .sub-header { color: #d63031; font-weight: bold; margin-top: 5px; }
+        .nav-pills .nav-link { color: red; border: 2px solid red; background-color: white; margin: 5px; font-weight: bold; cursor: pointer; }
+        .nav-pills .nav-link.active { background-color: red; color: yellow; }
+        .card-container { background: white; padding: 15px; border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        /* ── Table Header ── */
+        .table thead { background-color: #fff9c4; }
+        .table thead th {
+            font-weight: 900;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        /* ── ALL table data cells bold ── */
+        .table tbody td {
+            font-weight: 700;
+            color: #1a1a1a;
+            vertical-align: middle;
+        }
+
+        /* Material Name — Hindi (primary) */
+        .mat-hindi {
+            font-weight: 900;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        /* Material Name — English (secondary) */
+        .mat-english {
+            font-weight: 700;
+            font-size: 12px;
+            color: #444444;
+            margin-top: 2px;
+        }
+
+        /* Rate & GST inputs — bold text */
+        .rate-field,
+        .gst-field {
+            font-weight: 700 !important;
+            font-size: 14px !important;
+            color: #1a6e2e !important;
+        }
+        .gst-field {
+            color: #7a5c00 !important;
+        }
+
+        /* Changed state */
+        .rate-field.is-changed,
+        .gst-field.is-changed {
+            border-color: #e67e00 !important;
+            background-color: #fff8ee !important;
+            color: #b85c00 !important;
+            font-weight: 700 !important;
+        }
+
+        .changed-badge { display: none; font-size: 0.68rem; background: #e67e00; color: white; border-radius: 4px; padding: 1px 6px; margin-left: 6px; font-weight: 700; vertical-align: middle; }
+        .save-btn { background-color: red; color: yellow; font-size: 1.2rem; font-weight: bold; border: 2px solid darkred; padding: 15px; border-radius: 10px; transition: 0.3s; }
+        .save-btn:hover { background-color: darkred; color: yellow; }
+        .loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        .loading-overlay.show { display: flex; }
+        .loading-text { color: #d63031; font-weight: bold; font-size: 1.1rem; margin-top: 12px; }
+        .confirm-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; justify-content: center; align-items: center; padding: 16px; }
+        .confirm-overlay.show { display: flex; }
+        .confirm-box { background: white; border-radius: 14px; max-width: 420px; width: 100%; overflow: hidden; box-shadow: 0 10px 35px rgba(0,0,0,0.25); }
+        .confirm-header { background: red; color: yellow; padding: 14px 18px; font-weight: 900; }
+        .confirm-body { padding: 18px; font-size: 0.93rem; }
+        .confirm-changed-list { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 12px; max-height: 140px; overflow-y: auto; }
+        .ci { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding: 4px 0; font-weight: 700; }
+        .btn-global { flex: 1; padding: 11px; background: red; color: yellow; font-weight: 900; border: none; border-radius: 9px; }
+        .btn-local  { flex: 1; padding: 11px; background: white; color: red; font-weight: 900; border: 2px solid red; border-radius: 9px; }
+    </style>
+</head>
+<body>
+
+    <div id="loading" class="loading-overlay">
+        <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;"></div>
+        <div class="loading-text" id="loadingMsg">LOADING...</div>
+    </div>
+
+    <div id="confirmOverlay" class="confirm-overlay">
+        <div class="confirm-box">
+            <div class="confirm-header">⚠️ <span id="confirmCount">0</span> Items Changed</div>
+            <div class="confirm-body">
+                <div class="confirm-changed-list" id="confirmList"></div>
+                <p style="font-weight:700;"><strong>YES - Global:</strong> Sync across ALL sheets.<br><strong>NO - Local:</strong> Only update this sheet.</p>
+            </div>
+            <div class="confirm-footer d-flex gap-2 p-3">
+                <button class="btn-global" id="btnGlobal">YES — Global</button>
+                <button class="btn-local"  id="btnLocal">NO — Local</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="brand-header">
+        <h1 class="brand-name">RAGHUVIR SWEETS AND BAKERS</h1>
+        <div class="sub-header">Inventory Rate Master Dashboard</div>
+    </div>
+
+    <ul class="nav nav-pills nav-fill mb-4">
+        <li class="nav-item"><a class="nav-link active" onclick="switchTab(this, 'Nasta Raw')">Nasta Raw</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="switchTab(this, 'Savli Bakery')">Savli Bakery</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="switchTab(this, 'Namkeen Raw')">Namkeen Raw</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="switchTab(this, 'Mithai Raw')">Mithai</a></li>
+    </ul>
+
+    <div class="card-container">
+        <h4 id="tabTitle" class="mb-3 text-danger border-bottom pb-2">
+            Nasta Raw <span class="changed-badge" id="changedBadge">0 changed</span>
+        </h4>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Material Name</th>
+                        <th width="140">Rate (₹)</th>
+                        <th width="110">GST %</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+        <button class="btn save-btn w-100 mt-3" id="saveBtn" onclick="handleUpdate()">UPDATE & SAVE HISTORY</button>
+    </div>
+
+    <script>
+        var currentSheet   = 'Nasta Raw';
+        var dataCache      = [];
+        var pendingUpdates = [];
+
+        window.onload = function() {
+            document.getElementById('btnGlobal').onclick = () => execute(true);
+            document.getElementById('btnLocal').onclick  = () => execute(false);
+            loadData();
+        };
+
+        function switchTab(el, name) {
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            el.classList.add('active');
+            currentSheet = name;
+            document.getElementById('tabTitle').childNodes[0].nodeValue = name + ' ';
+            loadData();
+        }
+
+        function loadData() {
+            showLoading(true, 'LOADING DATA...');
+            google.script.run
+                .withSuccessHandler(data => {
+                    dataCache = data;
+                    renderTable(data);
+                    showLoading(false);
+                })
+                .withFailureHandler(err => {
+                    showLoading(false);
+                    alert('Error loading data: ' + err.message);
+                })
+                .getSheetData(currentSheet);
+        }
+
+        function renderTable(data) {
+            let html = '';
+            data.forEach((item, idx) => {
+                // Show English as primary, Hindi as secondary (Hindi may be empty for Block2 items)
+                let hindiLine = item.nameHindi ? `<div class="mat-hindi">${escHtml(item.nameHindi)}</div>` : '';
+                html += `<tr>
+                    <td>
+                        <div class="mat-english">${escHtml(item.nameEnglish || '')}</div>
+                        ${hindiLine}
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" class="form-control rate-field"
+                            value="${item.rate}" data-idx="${idx}" oninput="onFieldChange(this)">
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" class="form-control gst-field"
+                            value="${item.gst}" data-idx="${idx}" oninput="onFieldChange(this)">
+                    </td>
+                </tr>`;
+            });
+            document.getElementById('tableBody').innerHTML = html;
+            updateChangedBadge();
+        }
+
+        function onFieldChange(el) {
+            let idx  = el.dataset.idx;
+            let val  = parseFloat(el.value) || 0;
+            let orig = el.classList.contains('rate-field') ? dataCache[idx].rate : dataCache[idx].gst;
+            if (val !== orig) el.classList.add('is-changed');
+            else              el.classList.remove('is-changed');
+            updateChangedBadge();
+        }
+
+        function updateChangedBadge() {
+            let count = getChanges().length;
+            let badge = document.getElementById('changedBadge');
+            badge.style.display = count > 0 ? 'inline-block' : 'none';
+            badge.innerText     = count + ' changed';
+        }
+
+        function getChanges() {
+            let changes = [];
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach((row, i) => {
+                let rInput = row.querySelector('.rate-field');
+                let rVal   = parseFloat(rInput.value) || 0;
+                // GST is display-only — never saved to sheet, not included in change detection
+                if (rVal !== dataCache[i].rate) {
+                    let updatedItem = Object.assign({}, dataCache[i]);
+                    updatedItem.rate = rVal;
+                    // Do NOT pass gst — backend should not write it to sheet
+                    changes.push(updatedItem);
+                }
+            });
+            return changes;
+        }
+
+        function handleUpdate() {
+            pendingUpdates = getChanges();
+            if (pendingUpdates.length === 0) return alert('No changes detected.');
+            document.getElementById('confirmCount').innerText = pendingUpdates.length;
+            let listHtml = pendingUpdates.map(u =>
+                `<div class="ci"><span>${escHtml(u.nameEnglish || u.nameHindi)}</span><b>₹${u.rate}</b></div>`
+            ).join('');
+            document.getElementById('confirmList').innerHTML = listHtml;
+            document.getElementById('confirmOverlay').classList.add('show');
+        }
+
+        function execute(isGlobal) {
+            document.getElementById('confirmOverlay').classList.remove('show');
+            showLoading(true, isGlobal ? 'SYNCING GLOBALLY...' : 'SAVING LOCALLY...');
+            google.script.run
+                .withSuccessHandler(msg => {
+                    showLoading(false);
+                    alert(msg);
+                    loadData();
+                })
+                .withFailureHandler(err => {
+                    showLoading(false);
+                    alert('Error: ' + err.message);
+                })
+                .updateSheetData(currentSheet, pendingUpdates, isGlobal);
+        }
+
+        function showLoading(show, msg) {
+            document.getElementById('loading').classList.toggle('show', show);
+            if (msg) document.getElementById('loadingMsg').innerText = msg;
+        }
+
+        function escHtml(s) {
+            return String(s || '')
+                .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+    </script>
+</body>
+</html>
