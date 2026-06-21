@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Cost Calculator — MithaiCalc</title>
+<title>MithaiCalc v9 — Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#F4EFE6;--card:#FFF;--c2:#FDFAF5;--c3:#F9F5EF;--am:#C97B22;--alt:#FEF2DE;--adk:#9A5C10;--ambl:#FDEAC8;--gn:#186A3B;--glt:#E6F4ED;--rd:#B03025;--rlt:#FDECEA;--bl:#1557A0;--blt:#E8F0FB;--tx:#1A1008;--t2:#5C4030;--t3:#9A7A60;--bd:#DDD3C4;--bd2:#C8B89A;--r:12px;--rs:8px}
+:root{--bg:#F4EFE6;--card:#FFF;--c2:#FDFAF5;--am:#C97B22;--alt:#FEF2DE;--adk:#9A5C10;--ambl:#FDEAC8;--gn:#186A3B;--glt:#E6F4ED;--rd:#B03025;--rlt:#FDECEA;--bl:#1557A0;--blt:#E8F0FB;--tx:#1A1008;--t2:#5C4030;--t3:#9A7A60;--bd:#DDD3C4;--bd2:#C8B89A;--r:12px;--rs:8px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-size:14px;line-height:1.5}
 .bar{position:sticky;top:0;z-index:100;height:52px;background:#1A1008;display:flex;align-items:center;justify-content:space-between;padding:0 18px;box-shadow:0 2px 10px rgba(0,0,0,.35);gap:10px}
@@ -21,7 +21,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 .cht{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:6px}
 .ico{width:26px;height:26px;background:var(--am);border-radius:6px;display:grid;place-items:center;font-size:12px;flex-shrink:0}
 .cb{padding:16px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}
 @media(max-width:560px){.stats{grid-template-columns:1fr 1fr}}
 .stat{background:var(--card);border:1px solid var(--bd);border-radius:var(--rs);padding:12px 10px 10px;text-align:center;position:relative;overflow:hidden}
 .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
@@ -32,10 +32,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 .fg-card:hover{border-color:var(--am);box-shadow:0 2px 10px rgba(201,123,34,.15);transform:translateY(-1px)}
 .fg-name{font-size:13.5px;font-weight:700;margin-bottom:4px}
 .fg-cat{font-size:11px;color:var(--t3);margin-bottom:6px}
-.fg-badges{display:flex;gap:5px;flex-wrap:wrap}
+.fg-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
 .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10.5px;font-weight:700}
 .bgst{background:var(--blt);color:var(--bl)}.brec{background:var(--glt);color:var(--gn)}.bnr{background:#FFF3E0;color:#E65100}
-.fg-actions{display:flex;gap:4px;margin-top:8px}
+.fg-actions{display:flex;gap:4px}
 .ff{display:flex;flex-direction:column;gap:4px}
 .ff label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3)}
 .fi,.fsel{width:100%;padding:8px 11px;border:1.5px solid var(--bd2);border-radius:var(--rs);font-family:inherit;font-size:13.5px;color:var(--tx);background:var(--c2);transition:border-color .14s;-webkit-appearance:none;appearance:none}
@@ -86,15 +86,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 .rv-row:last-child{border-bottom:none}.rv-row:nth-child(even){background:var(--c2)}
 .fcst{background:linear-gradient(135deg,var(--blt),#FFF);border:2px solid var(--bl);border-radius:var(--r);padding:14px 16px;margin-bottom:12px}
 .res-hdr{background:linear-gradient(135deg,#1A1008,#2D1A08);border-radius:var(--rs);padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.res-hdr span{color:rgba(255,255,255,.82);font-size:13px;font-weight:700}
-.res-hdr strong{color:#FFF;font-size:14px;font-weight:900}
+.res-hdr span{color:rgba(255,255,255,.82);font-size:13px;font-weight:700}.res-hdr strong{color:#FFF;font-size:14px;font-weight:900}
 .tw{overflow-x:auto;border-radius:var(--rs);border:1px solid var(--bd)}
-.dtbl{width:100%;border-collapse:collapse;font-size:12.5px}
-.dtbl thead tr{background:#1A1008}
+.dtbl{width:100%;border-collapse:collapse;font-size:12.5px}.dtbl thead tr{background:#1A1008}
 .dtbl th{padding:7px 10px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:rgba(255,255,255,.7);white-space:nowrap}
-.dtbl th:last-child{text-align:center}
 .dtbl td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
-.dtbl tbody tr:last-child td{border-bottom:none}.dtbl tbody tr:hover{background:var(--c2)}.dtbl td:last-child{text-align:center}
+.dtbl tbody tr:last-child td{border-bottom:none}.dtbl tbody tr:hover{background:var(--c2)}
 .tag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10.5px;font-weight:700;background:var(--alt);color:var(--adk)}
 .act{display:flex;gap:3px;justify-content:center}
 .alert{border-radius:var(--rs);padding:8px 12px;font-size:12px;display:flex;align-items:flex-start;gap:6px;margin-bottom:10px}
@@ -108,57 +105,60 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;display:none;align-items:center;justify-content:center;padding:12px;overflow-y:auto}
 .mo.open{display:flex}
 .modal{background:#FFF;border-radius:var(--r);padding:20px;width:100%;max-width:500px;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative;animation:fup .2s ease;max-height:90vh;overflow-y:auto}
-.modal.wide{max-width:700px}
+.modal.wide{max-width:720px}
 @keyframes fup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .motitle{font-size:15px;font-weight:800;margin-bottom:14px;padding-right:20px}
 .moclose{position:absolute;top:13px;right:13px;width:25px;height:25px;border:none;background:var(--bg);border-radius:50%;cursor:pointer;font-size:13px;color:var(--t3);display:grid;place-items:center}
 .moclose:hover{background:var(--rlt);color:var(--rd)}
 .mofoot{display:flex;gap:7px;justify-content:flex-end;margin-top:14px}
-.oh-group-hdr td{background:var(--alt);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--adk);padding:5px 10px!important;border-top:2px solid var(--ambl)}
-@media print{.bar,.btn,.mo,.toast{display:none!important}.res-hdr{background:#FFF!important;border:2px solid #000!important;border-radius:4px!important}.res-hdr span{color:#000!important;font-size:14px!important;font-weight:800!important}.res-hdr strong{color:#000!important;font-size:15px!important;font-weight:900!important}}
+/* Block colour badges */
+.blk-nastha{background:#E8F4FD;color:#1557A0}.blk-bakery{background:#E8F9F0;color:#186A3B}
+.blk-namkeen{background:#FEF9E7;color:#9A5C10}.blk-mithai{background:#FDE8F4;color:#8B0A50}
+.blk-subrm{background:#F2EDF8;color:#6B3FA0}
+/* Final costing summary row */
+.fcs-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--bd);font-size:13px}
+.fcs-row:last-child{border-bottom:none;background:var(--glt);border-top:2px solid var(--gn)}
+@media print{.bar,.btn,.mo,.toast{display:none!important}}
 </style>
 </head>
 <body>
 <nav class="bar">
-  <div class="brand"><span style="font-size:20px">🍬</span><div><h1>Cost Calculator</h1><small id="brand-sub">MithaiCalc — Bakery Engine</small></div></div>
+  <div class="brand"><span style="font-size:20px">🍬</span><div><h1>MithaiCalc v9</h1><small>Horizontal RM Architecture</small></div></div>
   <div class="nav">
     <button class="nt on" onclick="go('home')" id="tn-home">🏠 Dashboard</button>
-    <button class="nt" onclick="go('recipe')" id="tn-recipe">📖 Recipe Addition</button>
+    <button class="nt" onclick="go('recipe')" id="tn-recipe">📖 Recipe</button>
     <button class="nt" onclick="go('materials')" id="tn-materials">🧾 Materials</button>
     <button class="nt" onclick="go('overheads')" id="tn-overheads">📋 Overheads</button>
     <button class="nt" onclick="go('calc')" id="tn-calc">🔢 Calculator</button>
   </div>
 </nav>
 
-<!-- DASHBOARD -->
+<!-- ═══ DASHBOARD ═══ -->
 <div class="pg on" id="pg-home">
-  <div class="sw on" id="hs"><div class="spinner"></div></div>
+  <div class="sw on" id="hs"><div class="spinner"></div><p style="color:var(--t3);font-size:12px;margin-top:6px">Loading…</p></div>
   <div id="hb" style="display:none">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-      <div class="stats" id="hstats" style="flex:1"></div>
-      <button class="btn bblu bsm" onclick="fastSync()" id="syncbtn" style="flex-shrink:0;margin-right:5px">⚡ Update Rates</button>
-      <button class="btn bo bsm" onclick="refreshAll()" id="rbtn" style="flex-shrink:0">🔄 Refresh</button>
+    <div class="stats" id="hstats"></div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <button class="btn bblu bsm" onclick="fastSync()" id="syncbtn">⚡ Update Rates</button>
+      <button class="btn bo bsm" onclick="refreshAll()" id="rbtn">🔄 Refresh</button>
     </div>
     <div class="g2" style="align-items:start">
       <div class="card">
-        <div class="ch"><div class="cht"><span class="ico">🍬</span>Finished Products</div><button class="btn ba bsm" onclick="openAddFG()">+ Add Product</button></div>
-        <div class="cb">
-          <div class="fg-grid" id="fg-grid"></div>
-          <div id="fg-empty" style="display:none;text-align:center;padding:20px;color:var(--t3)">No products yet</div>
-        </div>
+        <div class="ch"><div class="cht"><span class="ico">🍬</span>Finished Products</div><button class="btn ba bsm" onclick="openAddFG()">+ Add</button></div>
+        <div class="cb"><div class="fg-grid" id="fg-grid"></div><div id="fg-empty" style="display:none;text-align:center;padding:20px;color:var(--t3)">No products</div></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <div class="card">
           <div class="ch"><div class="cht"><span class="ico">🔍</span>Recipe Viewer</div></div>
           <div class="cb">
-            <div class="ff" style="margin-bottom:10px"><label>Select Product</label><select class="fsel" id="rv-sel" onchange="renderRV()"><option value="">— Select —</option></select></div>
+            <div class="ff" style="margin-bottom:10px"><label>Product</label><select class="fsel" id="rv-sel" onchange="renderRV()"><option value="">— Select —</option></select></div>
             <div id="rv-body"></div>
           </div>
         </div>
         <div class="card">
-          <div class="ch"><div class="cht"><span class="ico">⚗️</span>Sub-Raw Material Viewer</div></div>
+          <div class="ch"><div class="cht"><span class="ico">⚗️</span>Sub-RM Viewer</div></div>
           <div class="cb">
-            <div class="ff" style="margin-bottom:10px"><label>Select Sub-Raw Material</label><select class="fsel" id="srm-view-sel" onchange="renderSRMView()"><option value="">— Select —</option></select></div>
+            <div class="ff" style="margin-bottom:10px"><label>Sub-RM</label><select class="fsel" id="srm-view-sel" onchange="renderSRMView()"><option value="">— Select —</option></select></div>
             <div id="srm-view-body"></div>
           </div>
         </div>
@@ -167,10 +167,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
   </div>
 </div>
 
-<!-- RECIPE ADDITION -->
+<!-- ═══ RECIPE ═══ -->
 <div class="pg" id="pg-recipe">
   <div class="eb" id="rec-banner" style="display:none">
-    <div style="font-size:12.5px;font-weight:700;color:var(--adk);display:flex;align-items:center;gap:6px"><span class="dot"></span>✏️ Editing saved recipe — change and Save to update</div>
+    <div style="font-size:12.5px;font-weight:700;color:var(--adk);display:flex;align-items:center;gap:6px"><span class="dot"></span>✏️ Editing saved recipe — change ingredients and Save to update</div>
     <button class="btn bd2c bsm" onclick="rstRec()">✕ Cancel</button>
   </div>
   <div class="card">
@@ -178,7 +178,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
     <div class="cb">
       <div class="g3" style="margin-bottom:10px">
         <div class="ff"><label>Select Product *</label><select class="fsel fi big" id="rec-fg" onchange="onRecFG()"><option value="">— Select —</option></select></div>
-        <div class="ff"><label>Final Product Qty *</label><input class="fi hl" id="rec-qty" type="number" placeholder="e.g. 10" min="0.001" step="0.001" oninput="updPrev()"/><span class="fhint" id="rec-qty-hint">Batch output qty</span></div>
+        <div class="ff"><label>Final Product Qty *</label><input class="fi hl" id="rec-qty" type="number" placeholder="e.g. 10" min="0.001" step="0.001" oninput="updPrev()"/><span class="fhint">Batch output qty (the yield weight)</span></div>
         <div class="ff"><label>Final Product Unit *</label><select class="fsel" id="rec-unit"><option>Kg</option><option>Gm</option><option>Pcs</option><option>Litre</option><option>Box</option><option>Packet</option></select></div>
       </div>
       <div id="rec-info" style="display:none;background:var(--blt);padding:8px 12px;border-radius:var(--rs);margin-bottom:8px">
@@ -200,49 +200,57 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
         <thead><tr>
           <th style="width:28px"></th><th style="width:26px">Sr</th>
           <th>Ingredient</th><th style="width:72px">Qty</th>
-          <th style="width:64px">Unit</th><th style="width:88px">Unit Rate ₹</th>
+          <th style="width:64px">Unit</th><th style="width:88px">Rate ₹</th>
           <th style="width:88px">Line Total</th>
         </tr></thead>
         <tbody id="ibody"></tbody>
       </table></div>
       <button class="addrb" onclick="addR()">＋ Add Ingredient Row</button>
-      <button class="addrb" onclick="addSRMRow()" style="margin-top:4px;border-color:var(--am);color:var(--am)">⚗️ Add Sub-Raw Material</button>
+      <button class="addrb" onclick="addSRMRow()" style="margin-top:4px;border-color:var(--am);color:var(--am)">⚗️ Add Sub-RM Row</button>
     </div>
   </div>
   <div id="rprev" style="display:none;background:linear-gradient(135deg,#FFF8EC,#FFF);border:2px solid var(--am);border-radius:var(--r);padding:14px;margin-bottom:12px">
-    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--am);margin-bottom:8px">⚡ Live Preview</div>
+    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--am);margin-bottom:8px">⚡ Live Preview (RM only, before overheads)</div>
     <div class="g2">
-      <div style="text-align:center;background:#FFF;border:1px solid var(--bd);border-radius:var(--rs);padding:9px 7px"><div style="font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--t3);margin-bottom:2px">Cost / Unit</div><div style="font-size:17px;font-weight:900;color:var(--rd)" id="pcpp">₹—</div></div>
-      <div style="text-align:center;background:#FFF;border:1px solid var(--bd);border-radius:var(--rs);padding:9px 7px"><div style="font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--t3);margin-bottom:2px">Batch RM Total</div><div style="font-size:17px;font-weight:900;color:var(--gn)" id="pspp">₹—</div></div>
+      <div style="text-align:center;background:#FFF;border:1px solid var(--bd);border-radius:var(--rs);padding:9px 7px"><div style="font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--t3);margin-bottom:2px">Normalized Cost / Unit</div><div style="font-size:17px;font-weight:900;color:var(--rd)" id="pcpp">₹—</div></div>
+      <div style="text-align:center;background:#FFF;border:1px solid var(--bd);border-radius:var(--rs);padding:9px 7px"><div style="font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--t3);margin-bottom:2px">Total Batch RM</div><div style="font-size:17px;font-weight:900;color:var(--gn)" id="pspp">₹—</div></div>
     </div>
     <div style="font-size:11px;color:var(--t3);margin-top:6px;text-align:center" id="pdet"></div>
   </div>
   <div class="card">
-    <div class="ch"><div class="cht"><span class="ico">⚗️</span>Manage Sub-Raw Materials</div><button class="btn ba bsm" onclick="openSRM()">+ Add Sub-RM Recipe</button></div>
+    <div class="ch"><div class="cht"><span class="ico">⚗️</span>Sub-Raw Material Dashboard</div><button class="btn ba bsm" onclick="openSRM()">+ Add Sub-RM</button></div>
     <div class="cb">
-      <div class="alert ai" style="margin-bottom:10px">💡 <div>Composite ingredients (e.g. "Masala Mix") with their own sub-recipe. Once saved, they appear in the Ingredient dropdown with auto-computed cost.</div></div>
+      <div class="alert ai" style="margin-bottom:10px">💡 <div>Sub-RMs are composite ingredients with their own recipe. Saving them writes to <strong>Sub_RM_Recipes</strong> sheet AND inserts the normalized cost into the <strong>Sub-RM block (Y–AB)</strong> of RM_Price.</div></div>
       <div id="srmlist"><div style="color:var(--t3);font-size:12px">No sub-raw materials yet.</div></div>
     </div>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;padding:4px 0 8px">
-    <button class="btn bg blg" onclick="saveRec(false)">💾 Save Recipe</button>
-    <button class="btn ba blg" onclick="saveRec(true)">💾 Save Sub Raw Material Recipe</button>
+    <button class="btn bg blg" id="btn-save-rec" onclick="saveRec(false)">💾 Save Recipe</button>
+    <button class="btn ba blg" id="btn-save-subraw" onclick="saveRec(true)">💾 Save Sub Raw Material Recipe</button>
     <button class="btn bo" onclick="rstRec()">↺ Reset</button>
   </div>
 </div>
 
-<!-- MATERIALS -->
+<!-- ═══ MATERIALS ═══ -->
 <div class="pg" id="pg-materials">
+  <div class="alert ai" style="margin:14px 0 8px">🏗️ <div>
+    <strong>Dual-Write Architecture:</strong>
+    Nastha → <em>Nasta Raw</em> sheet &amp; RM_Price cols A–D &nbsp;|&nbsp;
+    Bakery → <em>Savli Bakery</em> sheet &amp; RM_Price cols G–J &nbsp;|&nbsp;
+    Namkeen → <em>Namkeen Raw</em> sheet &amp; RM_Price cols M–P &nbsp;|&nbsp;
+    Mithai → <em>Mithai Raw</em> sheet &amp; RM_Price cols S–V &nbsp;|&nbsp;
+    Other → <em>New Added</em> sheet
+  </div></div>
   <div class="card"><div class="ch"><div class="cht"><span class="ico">➕</span>Add Raw Material</div></div>
     <div class="cb">
       <div class="g3" style="margin-bottom:10px">
-        <div class="ff"><label>Item Name (English) *</label><input class="fi" id="mn" type="text" placeholder="e.g. Cashew"/></div>
-        <div class="ff"><label>Item Name (Hindi)</label><input class="fi" id="mnh" type="text" placeholder="Auto-translated on save"/></div>
-        <div class="ff"><label>Category *</label><select class="fsel" id="mcat"><option value="">— Select —</option></select></div>
+        <div class="ff"><label>Name (English) *</label><input class="fi" id="mn" type="text" placeholder="e.g. Cashew"/></div>
+        <div class="ff"><label>Name (Hindi)</label><input class="fi" id="mnh" type="text" placeholder="Auto-translated"/></div>
+        <div class="ff"><label>Category *</label><select class="fsel" id="mcat"><option value="">— Select Category —</option></select><span class="fhint" id="mcat-hint">Saves to category sheet + RM_Price block</span></div>
       </div>
       <div class="g2" style="margin-bottom:10px">
         <div class="ff"><label>Price / Rate (₹) *</label><input class="fi" id="mp" type="number" placeholder="850" min="0" step="0.01"/></div>
-        <div class="ff"><label>Unit *</label><input class="fi" id="mu" type="text" placeholder="Kg / Litre / Gm"/></div>
+        <div class="ff"><label>Unit *</label><input class="fi" id="mu" type="text" placeholder="Kg / Gm / Litre"/></div>
       </div>
       <button class="btn ba" onclick="addMat()">+ Add Material</button>
     </div>
@@ -255,21 +263,21 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
         <input type="text" id="msearch" oninput="filterMats()" placeholder="Search…" style="flex:1;padding:6px 10px;border:1.5px solid var(--bd2);border-radius:var(--rs);font-family:inherit;font-size:12.5px;background:var(--c2);min-width:120px"/>
       </div>
     </div>
-    <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Name (Eng / Hindi)</th><th>Unit</th><th>Price/Unit ₹</th><th>Actions</th></tr></thead><tbody id="mtbody"></tbody></table></div>
+    <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Name (Eng / Hindi)</th><th>Category → Sheet</th><th>Unit</th><th>Price/Unit ₹</th><th>Actions</th></tr></thead><tbody id="mtbody"></tbody></table></div>
   </div>
 </div>
 
-<!-- OVERHEADS -->
+<!-- ═══ OVERHEADS ═══ -->
 <div class="pg" id="pg-overheads">
   <div class="card">
     <div class="ch"><div class="cht"><span class="ico">📋</span>Overhead Rules</div><span id="ohtb" style="font-size:11.5px;background:var(--alt);color:var(--adk);padding:3px 9px;border-radius:10px;font-weight:700"></span></div>
-    <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Overhead Name</th><th>Sub Category</th><th>Calculation Basis</th><th>% Overhead</th><th>Actions</th></tr></thead><tbody id="ohtbody"></tbody></table></div>
+    <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Overhead Name</th><th>Sub Category</th><th>Calculation Basis</th><th>%</th><th>Actions</th></tr></thead><tbody id="ohtbody"></tbody></table></div>
   </div>
   <div class="card"><div class="ch"><div class="cht"><span class="ico">➕</span>Add Overhead Rule</div></div>
     <div class="cb">
       <div class="g2" style="margin-bottom:10px">
         <div class="ff"><label>Overhead Name *</label><input class="fi" id="ohcat" type="text" placeholder="e.g. Labour"/></div>
-        <div class="ff"><label>Sub Category <span style="font-weight:400;color:var(--t3)">(optional — leave blank for global)</span></label><select class="fsel" id="ohsubcat"><option value="">— All Products (Global) —</option></select></div>
+        <div class="ff"><label>Sub Category <span style="font-weight:400;color:var(--t3)">(blank = global)</span></label><select class="fsel" id="ohsubcat"><option value="">— All Products (Global) —</option></select></div>
       </div>
       <div class="g2" style="margin-bottom:10px">
         <div class="ff"><label>Calculation Basis *</label><select class="fsel" id="ohbasis"><option value="% of RM Cost">% of RM Cost</option><option value="% of Selling Price">% of Selling Price</option></select></div>
@@ -280,7 +288,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
   </div>
 </div>
 
-<!-- CALCULATOR -->
+<!-- ═══ CALCULATOR ═══ -->
 <div class="pg" id="pg-calc">
   <div class="card">
     <div class="ch"><div class="cht"><span class="ico">🔢</span>Cost Calculator</div></div>
@@ -288,8 +296,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
       <div style="background:var(--blt);border:1.5px solid #B0CCF0;border-radius:var(--rs);padding:12px 14px;margin-bottom:12px">
         <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--bl);margin-bottom:9px">Product &amp; Selling Price</div>
         <div class="g2">
-          <div class="ff"><label>Select Product *</label><select class="fsel" id="cfg" onchange="onCFG()"><option value="">— Choose product —</option></select></div>
-          <div class="ff"><label>Manually Applied Selling Price (₹ per unit)</label><input class="fi" id="csp" type="number" placeholder="e.g. 1200" min="0" step="0.01" oninput="syncFCInputs()"/><span class="fhint">Per Kg / Pcs / same as recipe output unit</span></div>
+          <div class="ff"><label>Select Product *</label><select class="fsel" id="cfg" onchange="onCFG()"><option value="">— Choose —</option></select></div>
+          <div class="ff"><label>Selling Price (₹/unit)</label><input class="fi" id="csp" type="number" placeholder="e.g. 1200" min="0" step="0.01" oninput="syncFCInputs()"/><span class="fhint">Per Kg/Pcs — same unit as recipe output</span></div>
         </div>
       </div>
       <div style="margin-bottom:12px">
@@ -311,26 +319,24 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
     <div class="fcst">
       <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--bl);margin-bottom:10px">📦 Reverse Scaling Forecast</div>
       <div class="g3">
-        <div class="ff"><label>Required Final Product Qty</label><input class="fi" id="fcst-qty" type="number" placeholder="e.g. 50" min="0" step="0.001"/></div>
+        <div class="ff"><label>Required Qty</label><input class="fi" id="fcst-qty" type="number" placeholder="e.g. 50" min="0" step="0.001"/></div>
         <div class="ff"><label>Unit</label><input class="fi" id="fcst-unit" readonly style="background:var(--c2)"/></div>
         <div class="ff"><label>Scale Factor</label><input class="fi" id="fcst-fac" readonly style="background:var(--c2);font-weight:800;color:var(--am)"/></div>
       </div>
-      <div style="margin-top:10px"><button class="btn ba bsm" onclick="calcForecast()">📐 Calculate Forecast</button></div>
+      <div style="margin-top:10px"><button class="btn ba bsm" onclick="calcForecast()">📐 Calculate</button></div>
       <div id="fcst-tbl" style="display:none;margin-top:10px">
-        <div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:6px">Scaled Requirements:</div>
         <div class="tw"><table class="dtbl"><thead><tr><th>Ingredient</th><th>Orig Qty</th><th>Scaled Qty</th><th>Unit</th><th>Scaled Cost ₹</th></tr></thead><tbody id="fcst-body"></tbody></table></div>
         <div id="fcst-oh" style="margin-top:8px;display:none">
-          <div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:4px">Scaled Overhead Projections:</div>
-          <div class="tw"><table class="dtbl"><thead><tr><th>Overhead</th><th>Basis</th><th>Scaled Amount ₹</th></tr></thead><tbody id="fcst-oh-body"></tbody></table></div>
+          <div class="tw"><table class="dtbl"><thead><tr><th>Overhead</th><th>Basis</th><th>Scaled ₹</th></tr></thead><tbody id="fcst-oh-body"></tbody></table></div>
         </div>
-        <div id="fcst-total" style="background:var(--alt);border:1px solid var(--ambl);border-radius:var(--rs);padding:8px 13px;margin-top:8px;display:flex;justify-content:space-between;font-weight:700;font-size:13px">
+        <div style="background:var(--alt);border:1px solid var(--ambl);border-radius:var(--rs);padding:8px 13px;margin-top:8px;display:flex;justify-content:space-between;font-weight:700;font-size:13px">
           <span>Scaled Total Cost</span><span id="fcst-total-val" style="color:var(--am);font-size:16px;font-weight:900"></span>
         </div>
       </div>
     </div>
     <div class="card">
       <div class="ch"><div class="cht"><span class="ico">🥛</span>Component A — Recipe Costing Ledger</div></div>
-      <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Ingredient</th><th>Qty</th><th>Unit</th><th>Unit Rate ₹</th><th>Line Total ₹</th></tr></thead><tbody id="rrows"></tbody></table></div>
+      <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Ingredient</th><th>Qty</th><th>Unit</th><th>Rate ₹</th><th>Line Total ₹</th></tr></thead><tbody id="rrows"></tbody></table></div>
     </div>
     <div class="card">
       <div class="ch"><div class="cht"><span class="ico">📊</span>Component B — Overhead Breakdown</div></div>
@@ -339,14 +345,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
     <div class="card" id="final-costing-panel" style="display:none">
       <div class="ch"><div class="cht"><span class="ico">💰</span>Final Costing Summary</div></div>
       <div class="cb" style="padding:0">
-        <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <tr style="border-bottom:1px solid var(--bd)"><td style="padding:10px 14px;color:var(--t2);font-weight:600">Final Costing (A + B) per <span id="fc-ab-unit-lbl">Unit</span></td><td style="padding:10px 14px;font-weight:800;text-align:right" id="fc-ab"></td></tr>
-          <tr style="border-bottom:1px solid var(--bd);background:var(--c2)"><td style="padding:10px 14px;color:var(--t2);font-weight:600">Total Cost Per <span id="fc-unit-lbl">Unit</span></td><td style="padding:10px 14px;font-weight:800;text-align:right;color:var(--rd)" id="fc-cpu"></td></tr>
-          <tr style="border-bottom:1px solid var(--bd)"><td style="padding:10px 14px;color:var(--t2);font-weight:600">Selling Price per <span id="fc-sp-lbl">Unit</span></td><td style="padding:10px 14px;font-weight:800;text-align:right;color:var(--bl)" id="fc-sp-ro">—</td></tr>
-          <tr style="border-bottom:1px solid var(--bd);background:var(--c2)"><td style="padding:10px 14px;color:var(--t2);font-weight:600">GST %</td><td style="padding:10px 14px;font-weight:800;text-align:right;color:var(--bl)" id="fc-gst-ro">—</td></tr>
-          <tr style="border-bottom:1px solid var(--bd)"><td style="padding:10px 14px;color:var(--t2);font-weight:600">Selling Price (Ex-Tax)</td><td style="padding:10px 14px;font-weight:800;text-align:right" id="fc-extax"><span style="color:var(--t3)">—</span></td></tr>
-          <tr style="background:var(--glt);border-top:2px solid var(--gn)"><td style="padding:12px 14px;font-weight:800;color:var(--gn)">Final Margin (%)</td><td style="padding:12px 14px;font-size:18px;font-weight:900;text-align:right" id="fc-margin"><span style="color:var(--t3)">—</span></td></tr>
-        </table>
+        <div class="fcs-row"><span>Final Costing (A+B) per <span id="fc-ab-unit-lbl">Unit</span></span><strong id="fc-ab"></strong></div>
+        <div class="fcs-row"><span style="color:var(--rd);font-weight:700">Total Cost per <span id="fc-unit-lbl">Unit</span></span><strong id="fc-cpu" style="color:var(--rd)"></strong></div>
+        <div class="fcs-row"><span>Selling Price per <span id="fc-sp-lbl">Unit</span></span><strong id="fc-sp-ro" style="color:var(--bl)">—</strong></div>
+        <div class="fcs-row"><span>GST %</span><strong id="fc-gst-ro" style="color:var(--bl)">—</strong></div>
+        <div class="fcs-row"><span>Selling Price (Ex-Tax)</span><strong id="fc-extax"><span style="color:var(--t3)">—</span></strong></div>
+        <div class="fcs-row" style="background:var(--glt);border-top:2px solid var(--gn)"><span style="font-weight:800;color:var(--gn)">Final Margin</span><strong id="fc-margin" style="font-size:18px"><span style="color:var(--t3)">—</span></strong></div>
       </div>
     </div>
     <div class="alert ae" id="rmiss" style="display:none">⚠️ <span id="rmisst"></span></div>
@@ -359,7 +363,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
   </div>
 </div>
 
-<!-- MODALS -->
+<!-- ═══ MODALS ═══ -->
 <div class="mo" id="mo-fg"><div class="modal">
   <div class="motitle" id="mofg-title">➕ Register Product</div><button class="moclose" onclick="cmo('mo-fg')">✕</button>
   <input type="hidden" id="mofg-orig"/>
@@ -374,24 +378,26 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 
 <div class="mo" id="mo-rm"><div class="modal">
   <div class="motitle">✏️ Edit Material</div><button class="moclose" onclick="cmo('mo-rm')">✕</button>
-  <input type="hidden" id="mrorig"/>
+  <input type="hidden" id="mrorig"/><input type="hidden" id="mrorigcat"/>
+  <div style="background:var(--blt);border:1px solid #B0CCF0;border-radius:var(--rs);padding:7px 11px;margin-bottom:10px;font-size:11.5px;color:var(--bl)">
+    Saves into the selected block's columns in RM_Price (smart row insertion).
+  </div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="ff"><label>Name (English)</label><input class="fi" id="mrn" type="text"/></div>
     <div class="ff"><label>Name (Hindi)</label><input class="fi" id="mrnh" type="text"/></div>
-    <div class="ff"><label>Category</label><select class="fsel" id="mrc"><option value="">— Select —</option></select></div>
+    <div class="ff"><label>Block</label><select class="fsel" id="mrc"><option value="">— Select Block —</option></select></div>
     <div class="ff"><label>Unit</label><input class="fi" id="mru" type="text"/></div>
     <div class="ff"><label>Price/Unit (₹)</label><input class="fi" id="mrp" type="number" min="0" step="0.01"/></div>
   </div>
-  <div class="mofoot"><button class="btn bo" onclick="cmo('mo-rm')">Cancel</button><button class="btn ba" onclick="svRM()">💾 Save</button></div>
+  <div class="mofoot"><button class="btn bo" onclick="cmo('mo-rm')">Cancel</button><button class="btn ba" onclick="svRM()">💾 Save to Block</button></div>
 </div></div>
 
 <div class="mo" id="mo-oh"><div class="modal">
   <div class="motitle">✏️ Edit Overhead</div><button class="moclose" onclick="cmo('mo-oh')">✕</button>
-  <input type="hidden" id="moorig"/>
-  <input type="hidden" id="moorig-subcat"/>
+  <input type="hidden" id="moorig"/><input type="hidden" id="moorig-subcat"/>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="ff"><label>Overhead Name</label><input class="fi" id="moc" type="text"/></div>
-    <div class="ff"><label>Sub Category <span style="font-weight:400;color:var(--t3)">(blank = global)</span></label><select class="fsel" id="mosc"><option value="">— All Products (Global) —</option></select></div>
+    <div class="ff"><label>Sub Category <span style="font-weight:400;color:var(--t3)">(blank = global)</span></label><select class="fsel" id="mosc"><option value="">— All Products —</option></select></div>
     <div class="ff"><label>Calculation Basis</label><select class="fsel" id="mob"><option value="% of RM Cost">% of RM Cost</option><option value="% of Selling Price">% of Selling Price</option></select></div>
     <div class="ff"><label>%</label><input class="fi" id="mop" type="number" min="0.1" max="200" step="0.1"/></div>
   </div>
@@ -399,22 +405,21 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 </div></div>
 
 <div class="mo" id="mo-srm"><div class="modal wide">
-  <div class="motitle" id="srm-mo-title">⚗️ Add Sub-Raw Material Recipe</div><button class="moclose" onclick="cmo('mo-srm')">✕</button>
+  <div class="motitle" id="srm-mo-title">⚗️ Add Sub-RM Recipe</div><button class="moclose" onclick="cmo('mo-srm')">✕</button>
   <div class="ff" style="margin-bottom:12px"><label>Sub-RM Name *</label><input class="fi big" id="srm-name" type="text" placeholder="e.g. Masala Mix"/></div>
   <div class="g2" style="margin-bottom:12px">
-    <div class="ff"><label>Batch Output Qty *</label><input class="fi hl" id="srm-oqty" type="number" placeholder="e.g. 1" min="0.001" step="0.001" oninput="updSRMPreview()"/><span class="fhint">How much this recipe produces</span></div>
-    <div class="ff"><label>Output Unit *</label><select class="fsel" id="srm-ounit"><option>Kg</option><option>Gm</option><option>Litre</option><option>Pcs</option><option>Box</option></select></div>
+    <div class="ff"><label>Batch Output Qty *</label><input class="fi hl" id="srm-oqty" type="number" placeholder="e.g. 1.6" min="0.001" step="0.001" oninput="updSRMPreview()"/><span class="fhint">Total yield weight of this batch</span></div>
+    <div class="ff"><label>Output Unit *</label><select class="fsel" id="srm-ounit" onchange="updSRMPreview()"><option>Kg</option><option>Gm</option><option>Litre</option><option>Pcs</option><option>Box</option></select></div>
   </div>
-  <div style="background:var(--blt);border:1px solid #B0CCF0;border-radius:var(--rs);padding:8px 12px;margin-bottom:10px;font-size:11.5px;color:var(--bl)">
-    💡 Cost/Unit = Total Ingredient Cost ÷ Output Qty. Auto-fills in future recipes.
-  </div>
-  <div class="tw"><table class="itbl"><thead><tr><th style="width:26px"></th><th>#</th><th>Ingredient</th><th>Qty</th><th>Unit</th><th>Unit Rate</th></tr></thead><tbody id="srm-body"></tbody></table></div>
+  <div class="alert ai" style="margin-bottom:10px">💡 <strong>Normalization:</strong> Cost/Unit = Total Batch Cost ÷ Batch Yield. Written into Sub-RM block (Y–AB) of RM_Price.</div>
+  <div class="tw"><table class="itbl"><thead><tr><th style="width:26px"></th><th>#</th><th>Ingredient</th><th>Qty</th><th>Unit</th><th>Rate ₹ (auto)</th></tr></thead><tbody id="srm-body"></tbody></table></div>
   <button class="addrb" onclick="addSRow()">＋ Add Row</button>
   <div id="srm-cost-preview" style="display:none;background:var(--glt);border:1.5px solid var(--gn);border-radius:var(--rs);padding:10px 14px;margin-top:10px">
-    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--gn);margin-bottom:6px">💰 Cost Preview</div>
-    <div class="g2">
+    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--gn);margin-bottom:6px">💰 Cost Preview (1 Kg/Pc Normalization)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
       <div style="text-align:center"><div style="font-size:9.5px;color:var(--t3);font-weight:700;text-transform:uppercase;margin-bottom:2px">Total Batch Cost</div><div style="font-size:15px;font-weight:900" id="srm-total">₹—</div></div>
-      <div style="text-align:center"><div style="font-size:9.5px;color:var(--t3);font-weight:700;text-transform:uppercase;margin-bottom:2px">Cost / Unit (÷<span id="srm-oqty-show">1</span>)</div><div style="font-size:15px;font-weight:900;color:var(--gn)" id="srm-cpu">₹—</div></div>
+      <div style="text-align:center"><div style="font-size:9.5px;color:var(--t3);font-weight:700;text-transform:uppercase;margin-bottom:2px">Batch Yield</div><div style="font-size:15px;font-weight:900" id="srm-yield">— Kg</div></div>
+      <div style="text-align:center"><div style="font-size:9.5px;color:var(--t3);font-weight:700;text-transform:uppercase;margin-bottom:2px">Normalized Cost / Unit</div><div style="font-size:15px;font-weight:900;color:var(--gn)" id="srm-cpu">₹—</div></div>
     </div>
   </div>
   <div class="mofoot">
@@ -426,18 +431,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 <div class="toast" id="toast"></div>
 
 <script>
-var G={fg:[],rm:[],recipes:{},subRm:{},oh:[],gst:{},rmCats:[],fgCats:[],ohSubCats:[]};
+// ── GLOBAL STATE ──
+var G={fg:[],rm:[],recipes:{},subRm:{},oh:[],gst:{},blocks:[],fgCats:[],ohSubCats:[]};
 var lastCalc=null;
 
 // ── BOOT ──
 function boot(){
   google.script.run.withSuccessHandler(function(d){
-    G.fg=d.fg;G.rm=d.rm;G.oh=d.oh;G.gst=d.gst;G.rmCats=d.rmCats||[];
-    G.fgCats=d.fgCats||['Methai','Bakery','Namkeen'];
-    G.ohSubCats=d.ohSubCats||G.fgCats;
-    G.recipes={};Object.keys(d.recipes||{}).forEach(function(k){G.recipes[k]=d.recipes[k];});
-    G.subRm=d.subRm||{};
-    buildCatSel();buildRmCats();buildIngDL();buildOHSubCatSels();
+    applyData(d);
     document.getElementById('hs').style.display='none';
     document.getElementById('hb').style.display='block';
     renderStats(d);renderFGGrid(G.fg);buildRVSel();buildSRMViewSel();renderSRMList();
@@ -446,6 +447,17 @@ function boot(){
     document.getElementById('hb').style.display='block';
     toast(e.message||'Load error','err');
   }).getData();
+}
+function applyData(d){
+  G.fg=d.fg;G.rm=d.rm;G.oh=d.oh;G.gst=d.gst;
+  G.blocks=d.blocks||['Nastha','Bakery','Namkeen','Mithai'];
+  G.fgCats=d.fgCats||G.blocks;
+  G.ohSubCats=d.ohSubCats||G.blocks;
+  // catSheetMap: { Nastha: 'Nasta Raw', Bakery: 'Savli Bakery', ... }
+  G.catSheetMap=d.catSheetMap||{Nastha:'Nasta Raw',Bakery:'Savli Bakery',Namkeen:'Namkeen Raw',Mithai:'Mithai Raw'};
+  G.recipes={};Object.keys(d.recipes||{}).forEach(function(k){G.recipes[k]=d.recipes[k];});
+  G.subRm=d.subRm||{};
+  buildCatSel();buildRmBlocks();buildIngDL();buildOHSubCatSels();
 }
 
 // ── NAV ──
@@ -462,31 +474,50 @@ function go(pg){
   if(pg==='recipe')initRec();
 }
 
-// ── STATS ──
-function renderStats(d){
-  document.getElementById('hstats').innerHTML=
-    '<div class="stat a"><div class="stn">'+G.fg.length+'</div><div class="stl">Products</div></div>'+
-    '<div class="stat g"><div class="stn">'+d.rmCount+'</div><div class="stl">Materials</div></div>'+
-    '<div class="stat b"><div class="stn">'+d.recCount+'</div><div class="stl">Recipe Lines</div></div>'+
-    '<div class="stat p"><div class="stn">'+d.ohPct.toFixed(0)+'%</div><div class="stl">Overhead</div></div>';
+// ── SELECT BUILDERS ──
+function buildCatSel(){
+  var s=document.getElementById('mofg-cat');s.innerHTML='<option value="">— Select —</option>';
+  G.fgCats.forEach(function(c){s.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+(G.gst[c]!==undefined?' (GST '+G.gst[c]+'%)':'')+'</option>';});
 }
-
-// ── SELECTS ──
+function buildRmBlocks(){
+  var catMap=G.catSheetMap||{};
+  // For "mcat" (add form) — show "Nastha → Nasta Raw" style labels
+  var mcatEl=document.getElementById('mcat');
+  if(mcatEl){
+    mcatEl.innerHTML='<option value="">— Select Category —</option>';
+    G.blocks.forEach(function(c){
+      var sheetName=catMap[c]?catMap[c]:'';
+      var label=sheetName?esc(c)+' → '+esc(sheetName):esc(c);
+      mcatEl.innerHTML+='<option value="'+esc(c)+'">'+label+'</option>';
+    });
+    mcatEl.innerHTML+='<option value="Other">Other → New Added</option>';
+  }
+  // For "mrc" (edit modal) — same style
+  var mrcEl=document.getElementById('mrc');
+  if(mrcEl){
+    mrcEl.innerHTML='<option value="">— Select Category —</option>';
+    G.blocks.forEach(function(c){
+      var sheetName=catMap[c]?catMap[c]:'';
+      var label=sheetName?esc(c)+' → '+esc(sheetName):esc(c);
+      mrcEl.innerHTML+='<option value="'+esc(c)+'">'+label+'</option>';
+    });
+    mrcEl.innerHTML+='<option value="Other">Other → New Added</option>';
+  }
+  // Filter dropdown — simple names
+  var f=document.getElementById('mfilter');
+  if(f){
+    f.innerHTML='<option value="">All Categories</option>';
+    G.blocks.forEach(function(c){f.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+'</option>';});
+    f.innerHTML+='<option value="Other">Other</option>';
+  }
+}
 function buildOHSubCatSels(){
-  var cats=G.ohSubCats||G.fgCats||['Methai','Bakery','Namkeen'];
+  var cats=G.ohSubCats||G.fgCats;
   ['ohsubcat','mosc'].forEach(function(id){
     var s=document.getElementById(id);if(!s)return;
     s.innerHTML='<option value="">— All Products (Global) —</option>';
     cats.forEach(function(c){s.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+'</option>';});
   });
-}
-function buildCatSel(){
-  var s=document.getElementById('mofg-cat');s.innerHTML='<option value="">— Select —</option>';
-  Object.keys(G.gst).forEach(function(c){s.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+' ('+G.gst[c]+'%)</option>';});
-}
-function buildRmCats(){
-  ['mcat','mrc'].forEach(function(id){var s=document.getElementById(id);if(!s)return;s.innerHTML='<option value="">— Select —</option>';G.rmCats.forEach(function(c){s.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+'</option>';});});
-  var f=document.getElementById('mfilter');if(f){f.innerHTML='<option value="">All Categories</option>';G.rmCats.forEach(function(c){f.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+'</option>';});}
 }
 function buildIngDL(cat){
   var dl=document.getElementById('ing-dl');
@@ -497,7 +528,21 @@ function buildIngDL(cat){
   dl.innerHTML=names.map(function(n){return'<option value="'+esc(n)+'">';}).join('');
 }
 
+// Block colour helper
+function blkTag(cat){
+  var map={'Nastha':'blk-nastha','Bakery':'blk-bakery','Namkeen':'blk-namkeen','Mithai':'blk-mithai','Sub-RM':'blk-subrm'};
+  var cls=map[cat]||'';
+  return'<span class="tag '+cls+'">'+esc(cat)+'</span>';
+}
+
 // ── DASHBOARD ──
+function renderStats(d){
+  document.getElementById('hstats').innerHTML=
+    '<div class="stat a"><div class="stn">'+G.fg.length+'</div><div class="stl">Products</div></div>'+
+    '<div class="stat g"><div class="stn">'+d.rmCount+'</div><div class="stl">Materials</div></div>'+
+    '<div class="stat b"><div class="stn">'+d.recCount+'</div><div class="stl">Recipe Lines</div></div>'+
+    '<div class="stat p"><div class="stn">'+d.ohPct.toFixed(0)+'%</div><div class="stl">Overhead</div></div>';
+}
 function loadHome(){
   google.script.run.withSuccessHandler(function(rec){
     G.recipes={};Object.keys(rec||{}).forEach(function(k){G.recipes[k]=rec[k];});
@@ -506,15 +551,16 @@ function loadHome(){
 }
 function renderFGGrid(list){
   var grid=document.getElementById('fg-grid'),hint=document.getElementById('fg-empty');
-  if(!list.length){grid.innerHTML='';hint.style.display='';return;}
+  if(!list||!list.length){grid.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
   grid.innerHTML=list.map(function(fg){
     var rk=Object.keys(G.recipes).find(function(k){return k===fg.name.toLowerCase();}),hasR=rk&&G.recipes[rk]&&G.recipes[rk].ingredients&&G.recipes[rk].ingredients.length>0;
-    var actions='<button class="btn bblu bsm" onclick="goRec(\''+esc(fg.name)+'\')">📖</button>';
-    actions+='<button class="btn ba bsm" onclick="goCalc(\''+esc(fg.name)+'\')">🔢</button>';
-    actions+='<button class="btn bo bsm" onclick="editFG(\''+esc(fg.name)+'\')">✏️</button>';
-    actions+='<button class="btn bd2c bsm" onclick="delFG(\''+esc(fg.name)+'\')">🗑</button>';
-    return'<div class="fg-card"><div class="fg-name">🍬 '+esc(fg.name)+'</div><div class="fg-cat">'+esc(fg.category||'—')+'</div>'+
+    var actions='<button class="btn bblu bsm" onclick="goRec(\''+esc(fg.name)+'\')">📖</button>'+
+      '<button class="btn ba bsm" onclick="goCalc(\''+esc(fg.name)+'\')">🔢</button>'+
+      '<button class="btn bo bsm" onclick="editFG(\''+esc(fg.name)+'\')">✏️</button>'+
+      '<button class="btn bd2c bsm" onclick="delFG(\''+esc(fg.name)+'\')">🗑</button>';
+    return'<div class="fg-card"><div class="fg-name">🍬 '+esc(fg.name)+'</div>'+
+      '<div class="fg-cat">'+esc(fg.category||'—')+'</div>'+
       '<div class="fg-badges"><span class="badge bgst">GST '+fg.gst+'%</span>'+(hasR?'<span class="badge brec">✓ Recipe</span>':'<span class="badge bnr">No Recipe</span>')+'</div>'+
       '<div class="fg-actions">'+actions+'</div></div>';
   }).join('');
@@ -537,7 +583,7 @@ function renderSRMView(){
   var total=0;
   var rows=s.ingredients.map(function(g){var rate=getRate(g.material),line=g.qty*rate;total+=line;return'<div class="rv-row"><span style="font-weight:600">'+esc(g.material)+'</span><span>'+g.qty+'</span><span>'+esc(g.unit)+'</span><span>'+(rate>0?fmt(rate):'—')+'</span><span>'+(line>0?fmt(line):'—')+'</span></div>';}).join('');
   var oqty=s.outputQty||1,ounit=s.outputUnit||'Unit',cpu=oqty>0?total/oqty:total;
-  body.innerHTML='<div style="font-size:11px;color:var(--t3);margin-bottom:6px">Output: <strong>'+oqty+' '+esc(ounit)+'</strong> | Batch: <strong>'+fmt(total)+'</strong> | Cost/'+esc(ounit)+': <strong style="color:var(--gn)">'+fmt(cpu)+'</strong></div>'+
+  body.innerHTML='<div style="font-size:11px;color:var(--t3);margin-bottom:6px">Batch Yield: <strong>'+oqty+' '+esc(ounit)+'</strong> | Normalized Cost/'+esc(ounit)+': <strong style="color:var(--gn)">'+fmt(cpu)+'</strong></div>'+
     '<div class="rv-matrix"><div class="rv-hdr"><span>Ingredient</span><span>Qty</span><span>Unit</span><span>Rate</span><span>Cost</span></div>'+rows+'</div>';
 }
 
@@ -557,8 +603,7 @@ function editFG(name){
 }
 function onCat(){
   var cat=document.getElementById('mofg-cat').value,gst=G.gst[cat],show=document.getElementById('mofg-gst-show');
-  if(gst!==undefined){document.getElementById('mofg-gst').value=gst;show.style.display='inline-block';show.textContent='Auto: '+gst+'% GST';}
-  else show.style.display='none';
+  if(gst!==undefined){document.getElementById('mofg-gst').value=gst;show.style.display='inline-block';show.textContent='Auto: '+gst+'% GST';}else show.style.display='none';
 }
 function saveFGM(){
   var name=document.getElementById('mofg-name').value.trim(),cat=document.getElementById('mofg-cat').value;
@@ -573,11 +618,11 @@ function saveFGM(){
   }).withFailureHandler(fe).saveFG(obj);
 }
 function delFG(name){
-  if(!confirm('Delete "'+name+'" and its recipe?'))return;
+  if(!confirm('Delete "'+name+'"?'))return;
   google.script.run.withSuccessHandler(function(){
     google.script.run.withSuccessHandler(function(){}).withFailureHandler(function(){}).deleteRecipe(name);
     G.fg=G.fg.filter(function(f){return f.name!==name;});delete G.recipes[name.toLowerCase()];
-    renderFGGrid(G.fg);buildRVSel();rebuildProdSels();toast('"'+name+'" deleted.','ok');
+    renderFGGrid(G.fg);buildRVSel();rebuildProdSels();toast('Deleted.','ok');
   }).withFailureHandler(fe).deleteFG(name);
 }
 function rebuildProdSels(){
@@ -607,15 +652,14 @@ function onRecFG(){
     document.getElementById('rec-qty').value=rec.qty>0?rec.qty:'';
     var unitSel=document.getElementById('rec-unit'),sheetUnit=String(rec.unit||'').trim();
     if(sheetUnit){
-      var matched=false,sheetUnitLower=sheetUnit.toLowerCase();
-      for(var i=0;i<unitSel.options.length;i++){if(unitSel.options[i].value.trim().toLowerCase()===sheetUnitLower){unitSel.selectedIndex=i;matched=true;break;}}
+      var matched=false;
+      for(var i=0;i<unitSel.options.length;i++){if(unitSel.options[i].value.trim().toLowerCase()===sheetUnit.toLowerCase()){unitSel.selectedIndex=i;matched=true;break;}}
       if(!matched){var opt=document.createElement('option');opt.value=sheetUnit;opt.textContent=sheetUnit;unitSel.appendChild(opt);unitSel.value=sheetUnit;}
     }
     banner.style.display='flex';toast('"'+name+'" loaded','info');
   }else{banner.style.display='none';document.getElementById('ibody').innerHTML='';addR();addR();addR();}
   updPrev();
 }
-
 function addR(data){
   var tb=document.getElementById('ibody'),idx=tb.rows.length,tr=document.createElement('tr');
   tr.innerHTML='<td><button class="delb" onclick="delR(this)">✕</button></td>'+
@@ -623,68 +667,52 @@ function addR(data){
     '<td><input class="ti" type="text" placeholder="Ingredient" list="ing-dl" autocomplete="off" oninput="rchg(this)" onkeydown="rkey(event,this)"/></td>'+
     '<td><input class="ti tism" type="number" placeholder="0.000" min="0" step="0.001" oninput="rchg(this)" onkeydown="rkey(event,this)"/></td>'+
     '<td><input class="ti tism" type="text" placeholder="Kg" onkeydown="rkey(event,this)"/></td>'+
-    '<td><input class="ti timd" type="number" placeholder="auto" min="0" step="0.01" oninput="rchg(this)" title="Unit Rate ₹"/></td>'+
+    '<td><input class="ti timd" type="number" placeholder="auto" min="0" step="0.01" oninput="rchg(this)" title="Rate ₹"/></td>'+
     '<td><span class="ctag" style="display:none"></span></td>';
   tb.appendChild(tr);
   if(data){var ins=tr.querySelectorAll('input');ins[0].value=data.material||'';ins[1].value=data.qty||'';ins[2].value=data.unit||'';ins[3].value=data.rate>0?data.rate:'';rchg(ins[0]);}
   else tr.querySelector('input').focus();
   renum();updPrev();
 }
-
 function addSRMRow(){
-  var keys=Object.keys(G.subRm);
-  if(!keys.length){toast('No Sub-Raw Materials saved yet.','err');return;}
-  var tb=document.getElementById('ibody'),tr=document.createElement('tr');
-  tr.style.background='var(--ambl)';
-  var opts=keys.map(function(k){
-    var s=G.subRm[k],total=0,oq=s.outputQty||1;
-    s.ingredients.forEach(function(g){var r=G.rm.find(function(x){return x.name.toLowerCase()===g.material.toLowerCase();});if(r)total+=g.qty*r.price;});
-    var cpu=oq>0?total/oq:total;
-    return'<option value="'+esc(s.name)+'" data-rate="'+cpu.toFixed(4)+'" data-unit="'+esc(s.outputUnit||'Kg')+'">'+esc(s.name)+' ('+esc(s.outputUnit||'Kg')+' @ '+fmt(cpu)+')</option>';
-  }).join('');
-  tr.innerHTML='<td><button class="delb" onclick="delR(this)">✕</button></td>'+
-    '<td style="font-size:10px;font-weight:700;color:var(--am);text-align:center">⚗️</td>'+
-    '<td colspan="4"><select class="fsel" style="font-size:12.5px;background:var(--card);border-color:var(--am)" onchange="onSRMRowSel(this)"><option value="">— Select Sub-Raw Material —</option>'+opts+'</select></td>'+
+  var keys=Object.keys(G.subRm);if(!keys.length){toast('No Sub-RMs yet. Add one below.','err');return;}
+  var tb=document.getElementById('ibody'),tr=document.createElement('tr');tr.style.background='var(--ambl)';
+  var opts=keys.map(function(k){var s=G.subRm[k],cpu=getSRMRate(s.name);return'<option value="'+esc(s.name)+'" data-rate="'+cpu.toFixed(4)+'" data-unit="'+esc(s.outputUnit||'Kg')+'">'+esc(s.name)+' @ '+fmt(cpu)+'/'+esc(s.outputUnit||'Kg')+'</option>';}).join('');
+  tr.innerHTML='<td><button class="delb" onclick="delR(this)">✕</button></td><td style="font-size:10px;font-weight:700;color:var(--am);text-align:center">⚗️</td>'+
+    '<td colspan="4"><select class="fsel" style="font-size:12.5px;background:var(--card);border-color:var(--am)" onchange="onSRMRowSel(this)"><option value="">— Select Sub-RM —</option>'+opts+'</select></td>'+
     '<td><span class="ctag" style="display:none"></span></td>';
   tb.appendChild(tr);renum();tr.querySelector('select').focus();
 }
-
 function onSRMRowSel(sel){
   var opt=sel.options[sel.selectedIndex];if(!opt||!opt.value)return;
-  var name=opt.value,unit=opt.getAttribute('data-unit')||'Kg';
-  var rate=getSRMRate(name)||parseFloat(opt.getAttribute('data-rate'))||0;
+  var name=opt.value,unit=opt.getAttribute('data-unit')||'Kg',rate=getSRMRate(name)||parseFloat(opt.getAttribute('data-rate'))||0;
   var tr=sel.closest('tr'),tb=document.getElementById('ibody'),idx=Array.from(tb.rows).indexOf(tr);
   var newTr=document.createElement('tr');newTr.style.background='var(--ambl)';
   newTr.innerHTML='<td><button class="delb" onclick="delR(this)">✕</button></td>'+
     '<td style="font-size:10px;font-weight:700;color:var(--am);text-align:center">⚗️'+(idx+1)+'</td>'+
-    '<td><input class="ti" type="text" value="'+esc(name)+'" readonly style="color:var(--adk);font-weight:700;background:transparent" list="ing-dl"/><span class="tag" style="font-size:9.5px;margin-left:4px;background:#F2EDF8;color:#6B3FA0">Sub-RM</span></td>'+
+    '<td><input class="ti" type="text" value="'+esc(name)+'" readonly style="color:var(--adk);font-weight:700;background:transparent" list="ing-dl"/><span class="tag blk-subrm" style="font-size:9.5px;margin-left:4px">Sub-RM</span></td>'+
     '<td><input class="ti tism" type="number" placeholder="1" min="0" step="0.001" oninput="rchg(this)" onkeydown="rkey(event,this)"/></td>'+
     '<td><input class="ti tism" type="text" value="'+esc(unit)+'" readonly style="background:transparent"/></td>'+
-    '<td><input class="ti timd" type="number" value="'+rate.toFixed(2)+'" step="0.01" oninput="rchg(this)" title="Cost/Unit (auto-computed)"/></td>'+
+    '<td><input class="ti timd" type="number" value="'+rate.toFixed(2)+'" step="0.01" oninput="rchg(this)"/></td>'+
     '<td><span class="ctag" style="display:none"></span></td>';
   tb.replaceChild(newTr,tr);newTr.querySelectorAll('input')[1].focus();renum();updPrev();
 }
-
 function getSRMRate(name){
-  var key=name.toLowerCase();
-  var srk=Object.keys(G.subRm).find(function(k){return k.toLowerCase()===key;});if(!srk)return 0;
+  var key=name.toLowerCase(),srk=Object.keys(G.subRm).find(function(k){return k.toLowerCase()===key;});
+  if(!srk)return 0;
   var s=G.subRm[srk],total=0,oq=s.outputQty||1;
   s.ingredients.forEach(function(g){var r=G.rm.find(function(x){return x.name.toLowerCase()===g.material.toLowerCase();});if(r&&r.price>0)total+=g.qty*r.price;});
   return oq>0?total/oq:total;
 }
-
 function getRate(matName){
   if(!matName)return 0;
   var k=matName.toLowerCase().trim();
   var rm=G.rm.find(function(r){return r.name&&r.name.toLowerCase()===k;});
   if(rm&&rm.price>0)return rm.price;
-  var srk=Object.keys(G.subRm).find(function(key){return key.toLowerCase()===k;});
-  if(srk){var s=G.subRm[srk],total=0;s.ingredients.forEach(function(g){var r=G.rm.find(function(x){return x.name.toLowerCase()===g.material.toLowerCase();});total+=(g.qty*(r?r.price:0));});return s.outputQty>0?total/s.outputQty:total;}
-  return 0;
+  return getSRMRate(matName);
 }
-
 function rchg(inp){
-  var tr=inp.closest('tr'),ins=tr.querySelectorAll('input');
+  var tr=inp.closest('tr'),ins=tr.querySelectorAll('input');if(!ins||ins.length<4)return;
   var mat=ins[0].value.trim(),qty=parseFloat(ins[1].value)||0,unitInp=ins[2],rateInp=ins[3],tag=tr.querySelector('.ctag');
   var rm=G.rm.find(function(r){return r.name.toLowerCase()===mat.toLowerCase();});
   if(rm&&!unitInp.value)unitInp.value=rm.unit;
@@ -698,7 +726,6 @@ function rkey(e,inp){if(e.key==='Enter'){e.preventDefault();var n=inp.closest('t
 function delR(b){b.closest('tr').remove();renum();updPrev();}
 function clrIng(){document.getElementById('ibody').innerHTML='';addR();addR();addR();}
 function renum(){document.querySelectorAll('#ibody tr').forEach(function(tr,i){var t=tr.querySelectorAll('td');if(t[1]&&!t[1].textContent.includes('⚗️'))t[1].textContent=i+1;});}
-
 function updPrev(){
   var qty=parseFloat(document.getElementById('rec-qty').value)||0,rm=0;
   document.querySelectorAll('#ibody tr').forEach(function(tr){
@@ -707,68 +734,70 @@ function updPrev(){
     if(q>0&&rate>0)rm+=q*rate;
   });
   var box=document.getElementById('rprev');
-  if(rm>0&&qty>0){box.style.display='block';document.getElementById('pcpp').textContent=fmt(rm/qty);document.getElementById('pspp').textContent=fmt(rm);document.getElementById('pdet').textContent='RM: '+fmt(rm)+' ÷ '+qty+' = '+fmt(rm/qty)+'/unit';}
-  else box.style.display='none';
+  if(rm>0&&qty>0){
+    box.style.display='block';
+    document.getElementById('pcpp').textContent=fmt(rm/qty);
+    document.getElementById('pspp').textContent=fmt(rm);
+    document.getElementById('pdet').textContent='Batch RM '+fmt(rm)+' ÷ '+qty+' '+document.getElementById('rec-unit').value+' = '+fmt(rm/qty)+'/'+document.getElementById('rec-unit').value;
+  }else box.style.display='none';
 }
 
-// ── COLLECT INGREDIENTS ──
+// ── ROBUST INGREDIENT COLLECTOR ──
 function getIngs(){
   var ings=[];
   document.querySelectorAll('#ibody tr').forEach(function(tr){
     var inputs=tr.querySelectorAll('input');
-    if(inputs.length<2)return;
-    var mat=inputs[0].value.trim();
-    var qty=parseFloat(inputs[1].value)||0;
-    var unit=inputs[2]?inputs[2].value.trim():'';
-    var rate=inputs[3]?parseFloat(inputs[3].value):0;
-    if(mat!==''&&qty>0){
-      if(unit==='')unit='Pcs';
-      ings.push({material:mat,qty:qty,unit:unit,rate:rate>0?rate:getRate(mat)});
+    if(!inputs||inputs.length<2)return;
+    var mat=String(inputs[0]?inputs[0].value||'':'').trim();
+    var qty=parseFloat(String(inputs[1]?inputs[1].value||'':'').trim())||0;
+    var unit=String(inputs[2]?inputs[2].value||'':'').trim()||'Kg';
+    var rate=parseFloat(String(inputs[3]?inputs[3].value||'':'').trim())||0;
+    if(mat&&qty>0){
+      if(!unit)unit='Kg';
+      if(rate<=0)rate=getRate(mat);
+      ings.push({material:mat,qty:qty,unit:unit,rate:rate});
     }
   });
   return ings;
 }
 
-// ══════════════════════════════════════════════════════
-// ── SAVE RECIPE — Two buttons, two different backends ──
-// 💾 Save Recipe       → saveRecipe() in Code.gs  (Recipes sheet only)
-// 💾 Save Sub Raw Mat  → saveDualRecipe() in Code.gs (Sub_RM + Recipes + FG_List + RM_Price)
-// ══════════════════════════════════════════════════════
+// ── SAVE RECIPE BUTTONS ──
+// 💾 Save Recipe        → saveRecipe() (Recipes sheet only)
+// 💾 Save Sub Raw Mat   → saveDualRecipe() (Sub_RM_Recipes + Recipes + FG_List + Sub-RM block Y–AB)
 function saveRec(andSaveSubRM){
   var name=document.getElementById('rec-fg').value.trim();
-  var qty =parseFloat(document.getElementById('rec-qty').value)||0;
+  var qty=parseFloat(document.getElementById('rec-qty').value)||0;
   var unit=document.getElementById('rec-unit').value;
   var ings=getIngs();
 
-  if(!name){toast('Pehle Product select karein','err');return;}
-  if(qty<=0){toast('Final Product Quantity zero nahi ho sakti','err');return;}
-  if(ings.length===0){toast('Ledger khali hai! Kam se kam 1 ingredient aur uski Qty daalein','err');return;}
+  if(!name){toast('Select a product first','err');return;}
+  if(qty<=0){toast('Batch Output Qty cannot be zero','err');return;}
+  if(ings.length===0){toast('Add at least 1 ingredient with Qty > 0','err');return;}
 
-  toast('Saving... Please wait');
+  toast(andSaveSubRM?'Saving Sub-RM recipe…':'Saving recipe…');
 
   if(andSaveSubRM){
-    // 💾 Save Sub Raw Material Recipe
-    // → Sub_RM_Recipes + Recipes + FG_List + RM_Price (all in one backend call)
+    var saveBtn=document.getElementById('btn-save-subraw');if(saveBtn)saveBtn.disabled=true;
     google.script.run
       .withSuccessHandler(function(r){
-        toast(r.message,'ok');
+        toast(r.message,'ok');if(saveBtn)saveBtn.disabled=false;
+        // PART 3: Update local Sub-RM state for inline edit
+        G.subRm[name]={name:name,outputQty:qty,outputUnit:unit,ingredients:ings};
         refreshAll();
       })
-      .withFailureHandler(function(e){toast('Save Failed: '+e.message,'err');})
+      .withFailureHandler(function(e){toast('Save Failed: '+(e.message||e),'err');if(saveBtn)saveBtn.disabled=false;})
       .saveDualRecipe(name,ings,qty,unit);
   }else{
-    // 💾 Save Recipe only → Recipes sheet
     google.script.run
       .withSuccessHandler(function(r){
         toast(r.message,'ok');
         G.recipes[name.toLowerCase()]={qty:qty,unit:unit,ingredients:ings};
         document.getElementById('rec-banner').style.display='flex';
       })
-      .withFailureHandler(function(e){toast('Save Failed: '+e.message,'err');})
+      .withFailureHandler(function(e){toast('Save Failed: '+(e.message||e),'err');})
       .saveRecipe(name,ings,qty,unit,true);
   }
 }
-
 function rstRec(){
   document.getElementById('rec-fg').value='';document.getElementById('rec-qty').value='';
   document.getElementById('rec-info').style.display='none';document.getElementById('rprev').style.display='none';
@@ -776,48 +805,64 @@ function rstRec(){
   addR();addR();addR();
 }
 
-// ── SUB-RM LIST ──
+// ── SUB-RM DASHBOARD ──
 function renderSRMList(){
   var keys=Object.keys(G.subRm),el=document.getElementById('srmlist');
   if(!el)return;
   if(!keys.length){el.innerHTML='<div style="color:var(--t3);font-size:12px">No sub-raw materials yet.</div>';return;}
   var html='<div class="tw"><table class="dtbl"><thead><tr>'+
-    '<th>Sub-RM Name</th><th>Batch Output</th><th>Batch Cost</th><th>Cost/Unit (Normalized)</th><th>Actions</th>'+
+    '<th>Sub-RM Name</th><th>Batch Yield</th><th>Total Batch Cost</th><th>Normalized Cost/Unit</th><th style="text-align:center">Actions</th>'+
     '</tr></thead><tbody>';
   keys.forEach(function(k){
-    var s=G.subRm[k],totalBatchCost=0;
+    var s=G.subRm[k];
+    // PART 3: 1 Kg/Pc normalization displayed here
+    var totalBatchCost=0;
     s.ingredients.forEach(function(g){var rate=getRate(g.material);totalBatchCost+=(parseFloat(g.qty)||0)*rate;});
-    var oqty=parseFloat(s.outputQty)||1,ounit=s.outputUnit||'Kg',costPerUnit=totalBatchCost/oqty;
-    html+='<tr><td><strong>'+esc(s.name)+'</strong></td>'+
+    var oqty=parseFloat(s.outputQty)||1,ounit=s.outputUnit||'Kg';
+    var normalizedCpu=totalBatchCost/oqty; // Total Batch Cost / Total Raw Output Batch Yield
+    html+='<tr>'+
+      '<td><strong>'+esc(s.name)+'</strong></td>'+
       '<td><span class="tag">'+oqty+' '+esc(ounit)+'</span></td>'+
       '<td>'+fmt(totalBatchCost)+'</td>'+
-      '<td style="font-weight:900;color:var(--gn)">'+fmt(costPerUnit)+' / '+esc(ounit)+'</td>'+
+      '<td style="font-weight:900;color:var(--gn)">'+fmt(normalizedCpu)+' / '+esc(ounit)+'</td>'+
       '<td><div class="act">'+
         '<button class="btn bo bsm bico" onclick="editSRM(\''+esc(s.name)+'\')" title="Edit">✏️</button>'+
         '<button class="btn bd2c bsm bico" onclick="delSRM(\''+esc(s.name)+'\')" title="Delete">🗑️</button>'+
       '</div></td></tr>';
   });
-  html+='</tbody></table></div>';
-  el.innerHTML=html;
+  html+='</tbody></table></div>';el.innerHTML=html;
 }
 
-// ── SUB-RM MODAL ──
 function openSRM(){
-  document.getElementById('srm-mo-title').textContent='⚗️ Add Sub-Raw Material Recipe';
+  document.getElementById('srm-mo-title').textContent='⚗️ Add Sub-RM Recipe';
   document.getElementById('srm-save-btn').textContent='💾 Save Sub-RM';
-  document.getElementById('srm-name').value='';document.getElementById('srm-body').innerHTML='';
-  if(document.getElementById('srm-oqty'))document.getElementById('srm-oqty').value='1';
+  document.getElementById('srm-save-btn').dataset.mode='add';
+  document.getElementById('srm-name').value='';document.getElementById('srm-name').readOnly=false;
+  document.getElementById('srm-body').innerHTML='';document.getElementById('srm-oqty').value='1';
   var p=document.getElementById('srm-cost-preview');if(p)p.style.display='none';
+  // ⭐ FIX: reset ingredient dropdown to show ALL raw materials (every
+  // category) — previously this kept whatever category-filter was last
+  // applied by onRecFG() (e.g. "Namkeen"), so Sub-RM ingredients only
+  // showed that one category.
+  buildIngDL();
   addSRow();addSRow();omo('mo-srm');
 }
 
+// PART 3 — Full Inline Edit Engine
 function editSRM(name){
   var s=G.subRm[name]||G.subRm[name.toLowerCase()];if(!s)return;
-  document.getElementById('srm-mo-title').textContent='🔄 Update Sub-Raw Material Recipe';
-  document.getElementById('srm-save-btn').textContent='🔄 Update Sub-RM';
+  document.getElementById('srm-mo-title').textContent='🔄 Update Sub-RM: '+esc(name);
+  document.getElementById('srm-save-btn').textContent='🔄 Update Sub Raw Material Recipe';
+  document.getElementById('srm-save-btn').dataset.mode='edit';
+  // ⭐ FIX: same as openSRM() — always show ALL categories' materials
+  // in the ingredient dropdown when editing a Sub-RM too.
+  buildIngDL();
+  // Load all inputs
   document.getElementById('srm-name').value=s.name;
+  document.getElementById('srm-name').readOnly=true; // Lock name in edit mode
   document.getElementById('srm-oqty').value=s.outputQty;
   document.getElementById('srm-ounit').value=s.outputUnit;
+  // Load all nested ingredient rows back into form
   var tbody=document.getElementById('srm-body');tbody.innerHTML='';
   s.ingredients.forEach(function(ing){addSRow(ing);});
   omo('mo-srm');updSRMPreview();
@@ -836,88 +881,151 @@ function addSRow(data){
   updSRMPreview();
 }
 
+// PART 3 — 1 Kg/Pc Normalization live preview
 function updSRMPreview(){
-  var oqty=parseFloat(document.getElementById('srm-oqty')&&document.getElementById('srm-oqty').value)||1,total=0;
+  var oqty=parseFloat((document.getElementById('srm-oqty')||{}).value)||1;
+  var ounit=(document.getElementById('srm-ounit')||{}).value||'Kg';
+  var total=0;
   document.querySelectorAll('#srm-body tr').forEach(function(tr){
     var ins=tr.querySelectorAll('input'),tag=tr.querySelector('.ctag');if(!ins||!ins[0])return;
     var mat=ins[0].value.trim(),qty=parseFloat(ins[1]&&ins[1].value)||0,rate=getRate(mat);
     if(mat&&qty>0&&rate>0){var line=qty*rate;total+=line;if(tag){tag.textContent='≈ '+fmt(line);tag.style.display='inline-block';}}
     else if(tag)tag.style.display='none';
   });
-  var cpu=oqty>0?total/oqty:total;
+  // Normalization: Total Batch Cost / Total Raw Output Batch Yield Weight
+  var normalizedCpu=oqty>0?total/oqty:total;
   var preview=document.getElementById('srm-cost-preview');if(preview)preview.style.display=total>0?'block':'none';
-  var st=document.getElementById('srm-total'),sc=document.getElementById('srm-cpu'),sq=document.getElementById('srm-oqty-show');
-  if(st)st.textContent=fmt(total);if(sc)sc.textContent=fmt(cpu);if(sq)sq.textContent=oqty;
+  var st=document.getElementById('srm-total'),sc=document.getElementById('srm-cpu'),sy=document.getElementById('srm-yield');
+  if(st)st.textContent=fmt(total);
+  if(sc)sc.textContent=fmt(normalizedCpu)+' / '+esc(ounit);
+  if(sy)sy.textContent=oqty+' '+esc(ounit);
 }
 
+// Robust saveSRM with complete ingredient collection
 function saveSRM(){
   var name=document.getElementById('srm-name').value.trim();
   var oqty=parseFloat(document.getElementById('srm-oqty').value)||1;
   var ounit=document.getElementById('srm-ounit').value;
-  if(!name){toast('Sub-RM Name is required','err');return;}
+  var mode=document.getElementById('srm-save-btn').dataset.mode||'add';
+  if(!name){toast('Sub-RM Name required','err');return;}
+
+  // Robust row collection — guards against empty/null inputs
   var ings=[];
   document.querySelectorAll('#srm-body tr').forEach(function(row){
     var inputs=row.querySelectorAll('input');
-    if(inputs.length>=2){var mat=inputs[0].value.trim(),qty=parseFloat(inputs[1].value)||0,unit=inputs[2]?inputs[2].value.trim():'Kg';if(mat&&qty>0)ings.push({material:mat,qty:qty,unit:unit});}
+    if(!inputs||inputs.length<2)return;
+    var mat=String(inputs[0]?inputs[0].value||'':'').trim();
+    var qty=parseFloat(String(inputs[1]?inputs[1].value||'':''))||0;
+    var unit=String(inputs[2]?inputs[2].value||'':'').trim()||'Kg';
+    if(mat&&qty>0)ings.push({material:mat,qty:qty,unit:unit});
   });
-  if(ings.length===0){toast('Please add at least one valid ingredient (Name & Qty > 0)','err');return;}
-  toast('Saving Sub-RM...');
+
+  if(ings.length===0){toast('Add at least 1 ingredient with Qty > 0','err');return;}
+
+  toast(mode==='edit'?'Updating Sub-RM…':'Saving Sub-RM…');
+  var saveBtn=document.getElementById('srm-save-btn');saveBtn.disabled=true;
+
   google.script.run
     .withSuccessHandler(function(r){
-      toast(r.message,'ok');cmo('mo-srm');
+      toast(r.message,'ok');saveBtn.disabled=false;
+      document.getElementById('srm-name').readOnly=false;cmo('mo-srm');
+      // Update local state
       G.subRm[name]={name:name,outputQty:oqty,outputUnit:ounit,ingredients:ings};
-      renderSRMList();buildIngDL();if(typeof buildSRMViewSel==='function')buildSRMViewSel();
+      renderSRMList();buildIngDL();buildSRMViewSel();
     })
-    .withFailureHandler(function(e){toast('Save Failed: '+e.message,'err');})
+    .withFailureHandler(function(e){toast('Save Failed: '+(e.message||e),'err');saveBtn.disabled=false;})
     .saveSubRM(name,ings,true,oqty,ounit);
 }
-
 function delSRM(name){
   if(!confirm('Delete "'+name+'"?'))return;
-  google.script.run.withSuccessHandler(function(r){toast(r.message,'ok');delete G.subRm[name];buildIngDL();renderSRMList();buildSRMViewSel();}).withFailureHandler(fe).deleteSubRM(name);
+  google.script.run.withSuccessHandler(function(r){
+    toast(r.message,'ok');delete G.subRm[name];buildIngDL();renderSRMList();buildSRMViewSel();
+  }).withFailureHandler(fe).deleteSubRM(name);
 }
 
-// ── MATERIALS ──
+// ── MATERIALS (Dual-Write: category sheet + RM_Price block) ──
 function renderMats(d){document.getElementById('mcnt').textContent=d.length+' items';filterMats();}
 function filterMats(){
   var cat=(document.getElementById('mfilter')||{}).value||'';
   var srch=((document.getElementById('msearch')||{}).value||'').toLowerCase();
-  var f=G.rm.filter(function(r){if(cat&&r.category!==cat)return false;if(srch&&r.name.toLowerCase().indexOf(srch)<0&&(!r.nameHi||r.nameHi.toLowerCase().indexOf(srch)<0))return false;return true;});
+  var f=G.rm.filter(function(r){
+    if(cat&&r.category!==cat)return false;
+    if(srch&&r.name.toLowerCase().indexOf(srch)<0&&(!r.nameHi||r.nameHi.toLowerCase().indexOf(srch)<0))return false;
+    return true;
+  });
   var tb=document.getElementById('mtbody');
-  if(!f.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--t3)">No materials found.</td></tr>';return;}
+  if(!f.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:18px;color:var(--t3)">No materials found.</td></tr>';return;}
+  var catMap=G.catSheetMap||{};
   tb.innerHTML=f.map(function(r,i){
-    return'<tr><td style="color:var(--t3);font-size:11px">'+(i+1)+'</td>'+
+    var sheetName=catMap[r.category]||r.category;
+    return'<tr>'+
+      '<td style="color:var(--t3);font-size:11px">'+(i+1)+'</td>'+
       '<td><strong>'+esc(r.name)+'</strong>'+(r.nameHi?'<br><span style="font-size:11px;color:var(--t3)">'+esc(r.nameHi)+'</span>':'')+'</td>'+
+      '<td>'+blkTag(r.category)+'<br><span style="font-size:9.5px;color:var(--t3)">📄 '+esc(sheetName)+'</span></td>'+
       '<td><span class="tag">'+esc(r.unit)+'</span></td>'+
       '<td style="font-weight:700">'+fmt(r.price)+'</td>'+
-      '<td><div class="act"><button class="btn bo bsm bico" onclick="oRM(\''+esc(r.name)+'\')">✏️</button><button class="btn bd2c bsm bico" onclick="dRM(\''+esc(r.name)+'\')">🗑️</button></div></td></tr>';
+      '<td><div class="act">'+
+        '<button class="btn bo bsm bico" onclick="oRM(\''+esc(r.name)+'\',\''+esc(r.category)+'\')">✏️</button>'+
+        '<button class="btn bd2c bsm bico" onclick="dRM(\''+esc(r.name)+'\',\''+esc(r.category)+'\')">🗑️</button>'+
+      '</div></td></tr>';
   }).join('');
 }
+
+// Add material → saves to category vertical sheet (F:I / A:E) + RM_Price block
 function addMat(){
-  var eng=document.getElementById('mn').value.trim(),hin=document.getElementById('mnh').value.trim(),cat=document.getElementById('mcat').value,price=document.getElementById('mp').value,unit=document.getElementById('mu').value.trim();
-  if(!eng||!unit){toast('Name and Unit required','err');return;}if(!cat){toast('Select category','err');return;}
-  var obj={name:eng,nameHi:hin,category:cat,unit:unit,price:parseFloat(price)||0};
+  var eng=document.getElementById('mn').value.trim(),hin=document.getElementById('mnh').value.trim(),
+      cat=document.getElementById('mcat').value,price=document.getElementById('mp').value,unit=document.getElementById('mu').value.trim();
+  if(!eng||!unit){toast('Name and Unit required','err');return;}
+  if(!cat){toast('Select a Category','err');return;}
+  var catMap=G.catSheetMap||{};
+  var sheetName=catMap[cat]||cat;
+  var gstPct=G.gst[cat]||5;
+  var obj={name:eng,nameHi:hin,category:cat,unit:unit,price:parseFloat(price)||0,gst:gstPct};
+  toast('Saving to "'+sheetName+'" (cols F:I)…');
   google.script.run.withSuccessHandler(function(r){
     toast(r.message,'ok');if(r.nameHi)obj.nameHi=r.nameHi;
     document.getElementById('mn').value='';document.getElementById('mnh').value='';document.getElementById('mp').value='';
-    var ex=G.rm.find(function(x){return x.name.toLowerCase()===eng.toLowerCase();});if(ex)Object.assign(ex,obj);else G.rm.push(obj);
+    var ex=G.rm.find(function(x){return x.name.toLowerCase()===eng.toLowerCase()&&x.category===cat;});
+    if(ex)Object.assign(ex,obj);else G.rm.push(obj);
     buildIngDL();renderMats(G.rm);
   }).withFailureHandler(fe).saveRM(obj,'add');
 }
-function oRM(name){
-  var r=G.rm.find(function(x){return x.name===name;});if(!r)return;
-  document.getElementById('mrorig').value=r.name;document.getElementById('mrn').value=r.name;document.getElementById('mrnh').value=r.nameHi||'';
-  document.getElementById('mrc').value=r.category||'';document.getElementById('mru').value=r.unit;document.getElementById('mrp').value=r.price;omo('mo-rm');
+
+function oRM(name,category){
+  var r=G.rm.find(function(x){return x.name===name&&(category?x.category===category:true);})||G.rm.find(function(x){return x.name===name;});
+  if(!r)return;
+  document.getElementById('mrorig').value=r.name;document.getElementById('mrorigcat').value=r.category||'';
+  document.getElementById('mrn').value=r.name;document.getElementById('mrnh').value=r.nameHi||'';
+  document.getElementById('mrc').value=r.category||'';document.getElementById('mru').value=r.unit;document.getElementById('mrp').value=r.price;
+  omo('mo-rm');
 }
+
+// Save edit → updates category sheet (F:I / A:E) + RM_Price block
 function svRM(){
-  var o=document.getElementById('mrorig').value,n=document.getElementById('mrn').value.trim(),nh=document.getElementById('mrnh').value.trim(),cat=document.getElementById('mrc').value,u=document.getElementById('mru').value.trim(),p=document.getElementById('mrp').value;
-  if(!n||!u){toast('Required','err');return;}
-  var obj={name:n,nameHi:nh,category:cat,unit:u,price:parseFloat(p)||0};
-  google.script.run.withSuccessHandler(function(r){toast('Updated','ok');cmo('mo-rm');var idx=G.rm.findIndex(function(x){return x.name===o;});if(idx>=0)G.rm[idx]=obj;else G.rm.push(obj);buildIngDL();renderMats(G.rm);}).withFailureHandler(fe).saveRM(obj,'upsert');
+  var o=document.getElementById('mrorig').value,oc=document.getElementById('mrorigcat').value;
+  var n=document.getElementById('mrn').value.trim(),nh=document.getElementById('mrnh').value.trim(),
+      cat=document.getElementById('mrc').value,u=document.getElementById('mru').value.trim(),p=document.getElementById('mrp').value;
+  if(!n||!u){toast('Required','err');return;}if(!cat){toast('Select Category','err');return;}
+  var catMap=G.catSheetMap||{};
+  var sheetName=catMap[cat]||cat;
+  var gstPct=G.gst[cat]||5;
+  var obj={name:n,nameHi:nh,category:cat,unit:u,price:parseFloat(p)||0,gst:gstPct};
+  toast('Updating "'+sheetName+'" (cols F:I)…');
+  google.script.run.withSuccessHandler(function(r){
+    toast(r.message,'ok');cmo('mo-rm');
+    G.rm=G.rm.filter(function(x){return!(x.name===o&&x.category===oc);});G.rm.push(obj);
+    buildIngDL();renderMats(G.rm);
+  }).withFailureHandler(fe).saveRM(obj,'upsert');
 }
-function dRM(name){
-  if(!confirm('Delete "'+name+'"?'))return;
-  google.script.run.withSuccessHandler(function(r){toast(r.message,'ok');G.rm=G.rm.filter(function(x){return x.name!==name;});buildIngDL();renderMats(G.rm);}).withFailureHandler(fe).deleteRM(name);
+
+function dRM(name,category){
+  var catMap=G.catSheetMap||{};
+  var sheetName=catMap[category]||category;
+  if(!confirm('Delete "'+name+'" from "'+sheetName+'"?'))return;
+  google.script.run.withSuccessHandler(function(r){
+    toast(r.message,'ok');G.rm=G.rm.filter(function(x){return!(x.name===name&&x.category===category);});
+    buildIngDL();renderMats(G.rm);
+  }).withFailureHandler(fe).deleteRM(name,category);
 }
 
 // ── OVERHEADS ──
@@ -928,36 +1036,32 @@ function renderOH(d){
       '<td><span class="tag">'+(r.subCategory||'Global')+'</span></td>'+
       '<td><span class="tag" style="background:var(--blt);color:var(--bl)">'+esc(r.basis||'% of RM Cost')+'</span></td>'+
       '<td style="font-weight:700">'+r.percentage+'%</td>'+
-      '<td><div class="act"><button class="btn bo bsm" onclick="oOH(\''+esc(r.category)+'\',\''+esc(r.subCategory||'')+'\')">✏️</button>'+
-      '<button class="btn bd2c bsm" onclick="dOH(\''+esc(r.category)+'\',\''+esc(r.subCategory||'')+'\')">🗑️</button></div></td></tr>';
+      '<td><div class="act">'+
+        '<button class="btn bo bsm" onclick="oOH(\''+esc(r.category)+'\',\''+esc(r.subCategory||'')+'\')">✏️</button>'+
+        '<button class="btn bd2c bsm" onclick="dOH(\''+esc(r.category)+'\',\''+esc(r.subCategory||'')+'\')">🗑️</button>'+
+      '</div></td></tr>';
   }).join('');
   var tot=d.reduce(function(s,r){return s+r.percentage;},0);
   var el=document.getElementById('ohtb');if(el)el.textContent='Total: '+tot.toFixed(1)+'%';
 }
-function _applyOH(list){
-  G.oh=list||[];renderOH(G.oh);
-  if(document.getElementById('pg-calc').classList.contains('on'))buildOHBoxes();
-}
+function _applyOH(list){G.oh=list||[];renderOH(G.oh);if(document.getElementById('pg-calc').classList.contains('on'))buildOHBoxes();}
 function addOH(){
   var c=document.getElementById('ohcat').value.trim(),sc=document.getElementById('ohsubcat').value,b=document.getElementById('ohbasis').value,p=parseFloat(document.getElementById('ohpct').value);
-  if(!c||!p){toast('Overhead Name and % required','err');return;}
-  toast('Saving…');
+  if(!c||!p){toast('Name and % required','err');return;}toast('Saving…');
   google.script.run.withSuccessHandler(function(r){toast(r.message,'ok');document.getElementById('ohcat').value='';document.getElementById('ohpct').value='';_applyOH(r.overheads);}).withFailureHandler(fe).saveOverhead(c,sc,b,p);
 }
 function oOH(cat,subCat){
   var r=G.oh.find(function(x){return x.category===cat&&(x.subCategory||'')===(subCat||'');});if(!r)return;
   document.getElementById('moorig').value=r.category;document.getElementById('moorig-subcat').value=r.subCategory||'';
   document.getElementById('moc').value=r.category;document.getElementById('mosc').value=r.subCategory||'';
-  var mobSel=document.getElementById('mob'),basisVal=r.basis||'% of RM Cost';
-  for(var i=0;i<mobSel.options.length;i++){if(mobSel.options[i].value===basisVal){mobSel.selectedIndex=i;break;}}
+  var mob=document.getElementById('mob'),bv=r.basis||'% of RM Cost';
+  for(var i=0;i<mob.options.length;i++)if(mob.options[i].value===bv){mob.selectedIndex=i;break;}
   document.getElementById('mop').value=r.percentage;omo('mo-oh');
 }
 function svOH(){
   var o=document.getElementById('moorig').value,osc=document.getElementById('moorig-subcat').value;
-  var c=document.getElementById('moc').value.trim(),sc=document.getElementById('mosc').value;
-  var b=document.getElementById('mob').value,p=parseFloat(document.getElementById('mop').value);
-  if(!c){toast('Required','err');return;}
-  toast('Saving…');
+  var c=document.getElementById('moc').value.trim(),sc=document.getElementById('mosc').value,b=document.getElementById('mob').value,p=parseFloat(document.getElementById('mop').value);
+  if(!c){toast('Required','err');return;}toast('Saving…');
   google.script.run.withSuccessHandler(function(r){toast(r.message,'ok');cmo('mo-oh');_applyOH(r.overheads);}).withFailureHandler(fe).updateOverhead(o,osc,c,sc,b,p);
 }
 function dOH(cat,subCat){
@@ -977,11 +1081,10 @@ function buildOHBoxes(){
   var selFG=document.getElementById('cfg')&&document.getElementById('cfg').value;
   var fgMeta=selFG?G.fg.find(function(f){return f.name===selFG;}):null;
   var fgCat=fgMeta?fgMeta.category:'';
-  var applicable=G.oh.filter(function(o){var sc=o.subCategory||'';return !sc||(fgCat&&sc.toLowerCase()===fgCat.toLowerCase());});
-  if(!applicable.length){grid.innerHTML='<div style="color:var(--t3);font-size:12px">No overheads applicable.</div>';return;}
+  var applicable=G.oh.filter(function(o){var sc=o.subCategory||'';return!sc||(fgCat&&sc.toLowerCase()===fgCat.toLowerCase());});
+  if(!applicable.length){grid.innerHTML='<div style="color:var(--t3);font-size:12px">No overheads. Add in Overheads tab.</div>';return;}
   applicable.forEach(function(o){
-    var sc=o.subCategory||'';
-    var k=ck(o.category)+(sc?'_'+ck(sc):'');
+    var sc=o.subCategory||'',k=ck(o.category)+(sc?'_'+ck(sc):'');
     var d=document.createElement('div');d.className='ohbox';
     d.innerHTML='<label>'+esc(o.category)+'</label>'+(sc?'<div class="basis" style="color:var(--gn)">'+esc(sc)+'</div>':'')+
       '<div class="basis">'+esc(o.basis||'% of RM Cost')+'</div>'+
@@ -999,46 +1102,41 @@ function onCFG(){
   var rk=Object.keys(G.recipes).find(function(k){return k===name.toLowerCase();}),rec=rk?G.recipes[rk]:null;
   var fd=G.fg.find(function(f){return f.name===name;});
   if(fd&&rec)toast('"'+name+'" — '+rec.qty+' '+rec.unit+' batch | GST '+fd.gst+'%','info');
-  else if(!rec)toast('"'+name+'" has no recipe','err');
+  else if(!rec)toast('"'+name+'" has no recipe yet','err');
 }
 function doCalc(){
   var fg=document.getElementById('cfg').value,sp=parseFloat(document.getElementById('csp').value)||0;
   if(!fg){toast('Select a product','err');return;}
   var ohOvr={};document.querySelectorAll('#cohboxes input').forEach(function(i){ohOvr[i.id.replace('coh-','')]=parseFloat(i.value)||0;});
   document.getElementById('cs').style.display='block';document.getElementById('cs').classList.add('on');document.getElementById('cbtn').disabled=true;
-  google.script.run.withSuccessHandler(function(d){document.getElementById('cs').style.display='none';document.getElementById('cbtn').disabled=false;lastCalc=d;renderRes(d);}).withFailureHandler(function(e){document.getElementById('cs').style.display='none';document.getElementById('cbtn').disabled=false;toast(e.message,'err');}).calculateCost(fg,sp,ohOvr);
+  google.script.run.withSuccessHandler(function(d){
+    document.getElementById('cs').style.display='none';document.getElementById('cbtn').disabled=false;lastCalc=d;renderRes(d);
+  }).withFailureHandler(function(e){document.getElementById('cs').style.display='none';document.getElementById('cbtn').disabled=false;toast(e.message,'err');}).calculateCost(fg,sp,ohOvr);
 }
-
 function renderRes(d){
-  document.getElementById('res-hdr').innerHTML='<span>Product: <strong>'+esc(d.fgName)+'</strong></span><span>Category: <strong>'+esc(d.fgCategory||'—')+'</strong></span><span>Batch Qty: <strong>'+d.batchQty+' '+esc(d.batchUnit)+'</strong></span><span>Calc: <strong>'+d.timestamp+'</strong></span>';
+  document.getElementById('res-hdr').innerHTML='<span>Product: <strong>'+esc(d.fgName)+'</strong></span><span>Category: <strong>'+esc(d.fgCategory||'—')+'</strong></span><span>Batch: <strong>'+d.batchQty+' '+esc(d.batchUnit)+'</strong></span><span>At: <strong>'+d.timestamp+'</strong></span>';
   document.getElementById('fcst-unit').value=d.batchUnit||'';
   document.getElementById('fcst-qty').value='';document.getElementById('fcst-fac').value='';document.getElementById('fcst-tbl').style.display='none';
   var cpRM=d.cpRMPerUnit!==undefined?d.cpRMPerUnit:(d.batchQty>0?d.batchRM/d.batchQty:d.batchRM);
   document.getElementById('rrows').innerHTML=d.lineItems.map(function(item,i){
-    return'<tr><td style="color:var(--t3)">'+(i+1)+'</td><td>'+esc(item.material)+(item.missing?'<span class="tag" style="background:var(--rlt);color:var(--rd);margin-left:5px">NO PRICE</span>':'')+
-      (item.isSubRM?'<span class="tag" style="background:#F2EDF8;color:#6B3FA0;margin-left:5px">Sub-RM</span>':'')+'</td>'+
+    return'<tr><td style="color:var(--t3)">'+(i+1)+'</td><td>'+esc(item.material)+
+      (item.missing?'<span class="tag" style="background:var(--rlt);color:var(--rd);margin-left:5px">NO PRICE</span>':'')+
+      (item.isSubRM?'<span class="tag blk-subrm" style="margin-left:5px">Sub-RM</span>':'')+'</td>'+
       '<td>'+item.qty+'</td><td><span class="tag">'+esc(item.unit)+'</span></td>'+
       '<td>'+(item.missing?'—':fmt(item.rate))+'</td><td style="font-weight:700">'+fmt(item.line)+'</td></tr>';
   }).join('')+
-  '<tr style="background:var(--ambl)"><td colspan="3" style="font-weight:700;padding:8px 10px">Total Batch Raw Material</td><td colspan="3" style="font-weight:900;padding:8px 10px">'+fmt(d.batchRM)+'</td></tr>'+
-  '<tr style="background:var(--alt)"><td colspan="3" style="font-weight:700;padding:8px 10px">Total Batch Raw Material per '+esc(d.batchUnit||'Unit')+'</td><td colspan="3" style="font-weight:900;padding:8px 10px;color:var(--rd)">'+fmt(cpRM)+'</td></tr>';
-
-  var ohBody=document.getElementById('ohrows');
-  ohBody.innerHTML=d.ohLines.map(function(o,i){
-    return'<tr><td style="color:var(--t3);font-size:11px">'+(i+1)+'</td><td>'+esc(o.category)+'</td>'+
+  '<tr style="background:var(--ambl)"><td colspan="3" style="font-weight:700;padding:8px 10px">Total Batch RM</td><td colspan="3" style="font-weight:900;padding:8px 10px">'+fmt(d.batchRM)+'</td></tr>'+
+  '<tr style="background:var(--alt)"><td colspan="3" style="font-weight:700;padding:8px 10px">Normalized RM / '+esc(d.batchUnit||'Unit')+'</td><td colspan="3" style="font-weight:900;padding:8px 10px;color:var(--rd)">'+fmt(cpRM)+'</td></tr>';
+  document.getElementById('ohrows').innerHTML=d.ohLines.map(function(o,i){
+    return'<tr><td style="color:var(--t3)">'+(i+1)+'</td><td>'+esc(o.category)+'</td>'+
       '<td>'+(o.subCategory?esc(o.subCategory):'—')+'</td><td>'+esc(o.basis)+'</td>'+
       '<td>'+fmt(o.base)+'</td><td>'+o.pct+'%</td><td style="font-weight:700">'+fmt(o.amount)+'</td></tr>';
-  }).join('')+
-  '<tr style="background:var(--alt);border-top:2px solid var(--bd2);font-weight:800">'+
-    '<td colspan="6" style="padding:10px;text-align:left;">Total Overhead Amount</td>'+
-    '<td style="padding:10px;color:var(--tx);">'+fmt(d.ohTotal)+'</td></tr>';
-
+  }).join('')+'<tr style="background:var(--alt);border-top:2px solid var(--bd2);font-weight:800"><td colspan="6" style="padding:10px">Total Overhead</td><td style="padding:10px">'+fmt(d.ohTotal)+'</td></tr>';
   var ma=document.getElementById('rmiss');
   if(d.missing&&d.missing.length){document.getElementById('rmisst').innerHTML='No price for: '+d.missing.map(function(m){return'<strong>'+esc(m)+'</strong>';}).join(', ');ma.style.display='flex';}else ma.style.display='none';
-
-  var finCostPerUnit=d.finCostPerUnit!==undefined?d.finCostPerUnit:(cpRM+(d.batchQty>0?d.ohTotal/d.batchQty:d.ohTotal));
+  var fin=d.finCostPerUnit!==undefined?d.finCostPerUnit:(cpRM+(d.batchQty>0?d.ohTotal/d.batchQty:d.ohTotal));
   document.getElementById('final-costing-panel').style.display='block';
-  document.getElementById('fc-ab').innerHTML='<strong>'+fmt(finCostPerUnit)+'</strong>';
+  document.getElementById('fc-ab').innerHTML='<strong>'+fmt(fin)+'</strong>';
   document.getElementById('fc-cpu').textContent=fmt(d.costPerUnit);
   var ul=d.batchUnit||'Unit';
   ['fc-unit-lbl','fc-sp-lbl','fc-ab-unit-lbl'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=ul;});
@@ -1049,7 +1147,6 @@ function renderRes(d){
   document.getElementById('cres').style.display='block';
   document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});
 }
-
 function calcFinalMargin(sp,gst,cpu){
   sp=sp!==undefined?sp:parseFloat(document.getElementById('csp').value)||0;
   gst=gst!==undefined?gst:(lastCalc?lastCalc.gstPct:0);
@@ -1059,85 +1156,62 @@ function calcFinalMargin(sp,gst,cpu){
   var extax=sp>0?sp/(1+gst/100):0;
   document.getElementById('fc-extax').innerHTML=extax>0?'<strong>'+fmt(extax)+'</strong>':'<span style="color:var(--t3)">—</span>';
   if(extax>0&&cpu>0){var margin=((extax-cpu)/extax)*100;document.getElementById('fc-margin').innerHTML='<span style="color:'+(margin>=0?'var(--gn)':'var(--rd)')+'">'+margin.toFixed(2)+'%</span>';}
-  else document.getElementById('fc-margin').innerHTML=sp>0?'<span style="color:var(--t3)">—</span>':'<span style="color:var(--t3);font-size:11px">N/A — enter selling price</span>';
+  else document.getElementById('fc-margin').innerHTML='<span style="color:var(--t3);font-size:11px">Enter selling price</span>';
 }
-function syncFCInputs(){if(!lastCalc)return;var sp=parseFloat(document.getElementById('csp').value)||0;document.getElementById('fc-sp-ro').textContent=fmt(sp||0);calcFinalMargin(sp,lastCalc.gstPct,lastCalc.costPerUnit);}
-
+function syncFCInputs(){if(!lastCalc)return;calcFinalMargin(parseFloat(document.getElementById('csp').value)||0,lastCalc.gstPct,lastCalc.costPerUnit);}
 function calcForecast(){
   if(!lastCalc)return;
   var t=parseFloat(document.getElementById('fcst-qty').value)||0;
   if(t<=0){document.getElementById('fcst-fac').value='';document.getElementById('fcst-tbl').style.display='none';return;}
-  var f=t/(lastCalc.batchQty||1);
-  document.getElementById('fcst-fac').value=f.toFixed(3)+'x';
+  var f=t/(lastCalc.batchQty||1);document.getElementById('fcst-fac').value=f.toFixed(3)+'x';
   var scaledRM=0;
   document.getElementById('fcst-body').innerHTML=lastCalc.lineItems.map(function(item){var sl=item.line*f;scaledRM+=sl;return'<tr><td>'+esc(item.material)+'</td><td>'+item.qty+'</td><td style="font-weight:700;color:var(--am)">'+(item.qty*f).toFixed(3)+'</td><td>'+esc(item.unit)+'</td><td style="font-weight:700">'+(item.missing?'—':fmt(sl))+'</td></tr>';}).join('');
   var scaledOH=0;
-  if(lastCalc.ohLines&&lastCalc.ohLines.length){
-    document.getElementById('fcst-oh-body').innerHTML=lastCalc.ohLines.map(function(o){var sa=o.amount*f;scaledOH+=sa;return'<tr><td><strong>'+esc(o.category)+'</strong></td><td><span class="tag" style="background:var(--blt);color:var(--bl)">'+esc(o.basis)+'</span></td><td style="font-weight:700">'+fmt(sa)+'</td></tr>';}).join('');
-    document.getElementById('fcst-oh').style.display='block';
-  }else document.getElementById('fcst-oh').style.display='none';
-  document.getElementById('fcst-total-val').textContent=fmt(scaledRM+scaledOH);
-  document.getElementById('fcst-total').style.display='flex';document.getElementById('fcst-tbl').style.display='block';
+  if(lastCalc.ohLines&&lastCalc.ohLines.length){document.getElementById('fcst-oh-body').innerHTML=lastCalc.ohLines.map(function(o){var sa=o.amount*f;scaledOH+=sa;return'<tr><td>'+esc(o.category)+'</td><td>'+esc(o.basis)+'</td><td style="font-weight:700">'+fmt(sa)+'</td></tr>';}).join('');document.getElementById('fcst-oh').style.display='block';}
+  else document.getElementById('fcst-oh').style.display='none';
+  document.getElementById('fcst-total-val').textContent=fmt(scaledRM+scaledOH);document.getElementById('fcst-tbl').style.display='block';
 }
-
 function exportPDF(){
-  if(!lastCalc){toast('Run calculation first','err');return;}
-  var d=lastCalc,sp=parseFloat(document.getElementById('csp').value)||0,gstv=d.gstPct||0;
-  var extax=sp>0?sp/(1+gstv/100):0,margin=extax>0&&d.costPerUnit>0?((extax-d.costPerUnit)/extax)*100:0;
-  var w=window.open('','_blank','width=900,height=700');
+  if(!lastCalc){toast('Calculate first','err');return;}
+  var d=lastCalc,sp=parseFloat(document.getElementById('csp').value)||0,gv=d.gstPct||0;
+  var extax=sp>0?sp/(1+gv/100):0,margin=extax>0&&d.costPerUnit>0?((extax-d.costPerUnit)/extax)*100:0;
   var cpRM=d.cpRMPerUnit!==undefined?d.cpRMPerUnit:(d.batchQty>0?d.batchRM/d.batchQty:d.batchRM);
-  var finCostPerUnit=d.finCostPerUnit!==undefined?d.finCostPerUnit:(cpRM+(d.batchQty>0?d.ohTotal/d.batchQty:d.ohTotal));
+  var fin=d.finCostPerUnit!==undefined?d.finCostPerUnit:(cpRM+(d.batchQty>0?d.ohTotal/d.batchQty:d.ohTotal));
+  var w=window.open('','_blank','width=900,height=700');
   var ingRows=d.lineItems.map(function(x,i){return'<tr><td>'+(i+1)+'</td><td>'+x.material+(x.isSubRM?' [Sub-RM]':'')+'</td><td>'+x.qty+'</td><td>'+x.unit+'</td><td>'+fmt(x.rate)+'</td><td><b>'+fmt(x.line)+'</b></td></tr>';}).join('');
   var ohRows=d.ohLines.map(function(x,i){return'<tr><td>'+(i+1)+'</td><td>'+x.category+'</td><td>'+(x.subCategory||'Global')+'</td><td>'+x.basis+'</td><td>'+fmt(x.base)+'</td><td>'+x.pct+'%</td><td><b>'+fmt(x.amount)+'</b></td></tr>';}).join('');
-  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>Cost Report — '+d.fgName+'</title>'+
-    '<style>body{font-family:Arial,sans-serif;font-size:12px;color:#1A1008;margin:0;padding:20px}h1{font-size:18px;margin:0 0 4px;color:#C97B22}h2{font-size:13px;margin:14px 0 6px}.hdr{display:flex;justify-content:space-between;border-bottom:2px solid #C97B22;padding-bottom:10px;margin-bottom:14px}.meta{display:flex;gap:16px;flex-wrap:wrap;background:#FEF2DE;padding:8px 12px;border-radius:6px;margin-bottom:12px;font-size:11px}.meta strong{color:#C97B22}table{width:100%;border-collapse:collapse;margin-bottom:12px}th{background:#1A1008;color:#FFF;padding:6px 8px;text-align:left;font-size:10px;text-transform:uppercase}td{padding:6px 8px;border-bottom:1px solid #DDD}tr:nth-child(even){background:#FDFAF5}.tot td{background:#FFF3E0;font-weight:700}.sum{border:2px solid #C97B22;border-radius:8px;overflow:hidden;margin-top:12px}.sr{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid #DDD;font-size:12px}.sr:last-child{border-bottom:none;background:#E6F4ED;font-weight:800;font-size:14px}.mv{font-weight:900}@media print{body{padding:10px}}</style>'+
-    '</head><body>'+
-    '<div class="hdr"><div><h1>Cost Calculator Report</h1><div style="font-size:11px;color:#9A7A60">MithaiCalc — Bakery Cost Engine</div></div><div style="text-align:right;font-size:11px;color:#9A7A60">'+d.timestamp+'</div></div>'+
-    '<div class="meta"><span>Product: <strong>'+d.fgName+'</strong></span><span>Category: <strong>'+d.fgCategory+'</strong></span><span>Batch: <strong>'+d.batchQty+' '+d.batchUnit+'</strong></span><span>GST: <strong>'+d.gstPct+'%</strong></span></div>'+
-    '<h2>Component A — Recipe Costing Ledger</h2>'+
-    '<table><thead><tr><th>#</th><th>Ingredient</th><th>Qty</th><th>Unit</th><th>Rate ₹</th><th>Amount ₹</th></tr></thead><tbody>'+ingRows+
-    '<tr class="tot"><td colspan="5">Total Batch Raw Material</td><td>'+fmt(d.batchRM)+'</td></tr>'+
-    '<tr class="tot"><td colspan="5">Raw Material per '+d.batchUnit+'</td><td>'+fmt(cpRM)+'</td></tr></tbody></table>'+
-    '<h2>Component B — Overhead Breakdown</h2>'+
-    '<table><thead><tr><th>#</th><th>Overhead</th><th>Sub Cat</th><th>Basis</th><th>Base ₹</th><th>%</th><th>Amount ₹</th></tr></thead><tbody>'+ohRows+
-    '<tr class="tot"><td colspan="6">Total Overhead</td><td>'+fmt(d.ohTotal)+'</td></tr></tbody></table>'+
-    '<div class="sum">'+
-    '<div class="sr"><span>Final Costing (A+B) per '+d.batchUnit+'</span><span><b>'+fmt(finCostPerUnit)+'</b></span></div>'+
-    '<div class="sr"><span>Cost per '+d.batchUnit+'</span><span style="color:#B03025;font-weight:800">'+fmt(d.costPerUnit)+'</span></div>'+
-    (sp>0?'<div class="sr"><span>Selling Price / '+d.batchUnit+'</span><span><b>'+fmt(sp)+'</b></span></div>':'')+
-    (extax>0?'<div class="sr"><span>Selling Price (Ex-Tax)</span><span>'+fmt(extax)+'</span></div>':'')+
-    (sp>0&&d.costPerUnit>0?'<div class="sr"><span>Final Margin</span><span class="mv" style="color:'+(margin>=0?'#186A3B':'#B03025')+'">'+margin.toFixed(2)+'%</span></div>':'')+
-    '</div></body></html>';
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>Cost Report</title><style>body{font-family:Arial,sans-serif;font-size:12px;padding:20px}h1{font-size:18px;color:#C97B22}h2{font-size:13px;margin:14px 0 6px}table{width:100%;border-collapse:collapse;margin-bottom:12px}th{background:#1A1008;color:#FFF;padding:6px 8px;text-align:left;font-size:10px}td{padding:6px 8px;border-bottom:1px solid #DDD}.tot td{background:#FFF3E0;font-weight:700}.sum div{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid #DDD}.sumfin{background:#E6F4ED;font-weight:800;font-size:14px}@media print{body{padding:10px}}</style></head><body>'+
+    '<h1>Cost Report — MithaiCalc v9</h1><div style="background:#FEF2DE;padding:8px 12px;border-radius:6px;margin-bottom:12px;font-size:11px;display:flex;gap:16px;flex-wrap:wrap"><span>Product: <strong>'+d.fgName+'</strong></span><span>Category: <strong>'+d.fgCategory+'</strong></span><span>Batch: <strong>'+d.batchQty+' '+d.batchUnit+'</strong></span><span>'+d.timestamp+'</span></div>'+
+    '<h2>Component A — Recipe</h2><table><thead><tr><th>#</th><th>Ingredient</th><th>Qty</th><th>Unit</th><th>Rate</th><th>Amount</th></tr></thead><tbody>'+ingRows+'<tr class="tot"><td colspan="5">Total Batch RM</td><td>'+fmt(d.batchRM)+'</td></tr><tr class="tot"><td colspan="5">Normalized RM/'+d.batchUnit+'</td><td>'+fmt(cpRM)+'</td></tr></tbody></table>'+
+    '<h2>Component B — Overheads</h2><table><thead><tr><th>#</th><th>Overhead</th><th>Sub Cat</th><th>Basis</th><th>Base</th><th>%</th><th>Amount</th></tr></thead><tbody>'+ohRows+'<tr class="tot"><td colspan="6">Total Overhead</td><td>'+fmt(d.ohTotal)+'</td></tr></tbody></table>'+
+    '<div class="sum" style="border:2px solid #C97B22;border-radius:8px;overflow:hidden"><div><span>Final Cost (A+B)/'+d.batchUnit+'</span><span><b>'+fmt(fin)+'</b></span></div><div><span>Cost/'+d.batchUnit+'</span><span style="color:#B03025;font-weight:800">'+fmt(d.costPerUnit)+'</span></div>'+(sp>0?'<div><span>Selling Price</span><span><b>'+fmt(sp)+'</b></span></div>':'')+(sp>0&&d.costPerUnit>0?'<div class="sumfin"><span>Final Margin</span><span style="color:'+(margin>=0?'#186A3B':'#B03025')+'">'+margin.toFixed(2)+'%</span></div>':'')+'</div></body></html>';
   w.document.write(html);w.document.close();setTimeout(function(){w.print();},400);
 }
-
 function saveLog(){if(!lastCalc)return;toast('Saving…');google.script.run.withSuccessHandler(function(){toast('Saved!','ok');}).withFailureHandler(fe).saveCalculation(lastCalc);}
-
 function fastSync(){
-  var btn=document.getElementById('syncbtn');btn.disabled=true;btn.innerHTML='⏳ Syncing...';
-  toast('Syncing all prices...','info');
-  google.script.run.withSuccessHandler(function(r){btn.disabled=false;btn.innerHTML='⚡ Update Rates';toast(r.message,'ok');refreshAll();}).withFailureHandler(function(e){btn.disabled=false;btn.innerHTML='⚡ Update Rates';toast('Sync Failed','err');}).updateAllRecipeRates();
+  var btn=document.getElementById('syncbtn');btn.disabled=true;btn.innerHTML='⏳ Syncing…';
+  toast('Reading Nasta Raw, Savli Bakery, Namkeen Raw… rebuilding RM_Price','info');
+  google.script.run.withSuccessHandler(function(r){
+    btn.disabled=false;btn.innerHTML='⚡ Update Rates';toast(r.message,'ok');
+    // Live update RM list without page reload
+    if(r.rm&&r.rm.length){G.rm=r.rm;buildIngDL();renderMats(G.rm);renderSRMList();buildSRMViewSel();}
+  }).withFailureHandler(function(e){btn.disabled=false;btn.innerHTML='⚡ Update Rates';toast('Sync Failed: '+(e.message||e),'err');}).updateAllRecipeRates();
 }
-
 function refreshAll(){
   var btn=document.getElementById('rbtn');btn.disabled=true;btn.textContent='⏳';
   google.script.run.withSuccessHandler(function(d){
-    G.fg=d.fg;G.rm=d.rm;G.oh=d.oh;G.fgCats=d.fgCats||G.fgCats;G.ohSubCats=d.ohSubCats||G.fgCats;
-    G.recipes={};Object.keys(d.recipes||{}).forEach(function(k){G.recipes[k]=d.recipes[k];});G.subRm=d.subRm||{};
-    buildIngDL();buildOHSubCatSels();renderFGGrid(G.fg);buildRVSel();buildSRMViewSel();renderStats(d);renderSRMList();renderOH(G.oh);
+    applyData(d);renderFGGrid(G.fg);buildRVSel();buildSRMViewSel();renderStats(d);renderSRMList();renderOH(G.oh);renderMats(G.rm);
     btn.disabled=false;btn.textContent='🔄 Refresh';toast('Refreshed','ok');
   }).withFailureHandler(function(){btn.disabled=false;btn.textContent='🔄 Refresh';toast('Refresh failed','err');}).getData();
 }
-
 function omo(id){document.getElementById(id).classList.add('open');}
-function cmo(id){document.getElementById(id).classList.remove('open');}
-document.querySelectorAll('.mo').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});});
+function cmo(id){document.getElementById(id).classList.remove('open');if(id==='mo-srm'){var sn=document.getElementById('srm-name');if(sn)sn.readOnly=false;}}
+document.querySelectorAll('.mo').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m){cmo(m.id);}});});
 function fmt(n){return'₹'+(parseFloat(n)||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function ck(c){return String(c||'').toLowerCase().replace(/[^a-z0-9]/g,'_').replace(/_+/g,'_').replace(/^_|_$/g,'');}
-function fe(e){document.getElementById('cs')&&(document.getElementById('cs').style.display='none');toast('Error: '+(e.message||e),'err');}
-var _tt;
-function toast(msg,type){var e=document.getElementById('toast');e.textContent=msg;e.className='toast on'+(type?' '+type:'');clearTimeout(_tt);_tt=setTimeout(function(){e.classList.remove('on');},3200);}
+function fe(e){var cs=document.getElementById('cs');if(cs)cs.style.display='none';toast('Error: '+(e.message||e),'err');}
+var _tt;function toast(msg,type){var e=document.getElementById('toast');e.textContent=msg;e.className='toast on'+(type?' '+type:'');clearTimeout(_tt);_tt=setTimeout(function(){e.classList.remove('on');},3500);}
 window.addEventListener('DOMContentLoaded',function(){boot();});
 </script>
 </body>
