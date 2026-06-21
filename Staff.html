@@ -84,6 +84,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 .dtbl td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .dtbl tbody tr:last-child td{border-bottom:none}.dtbl tbody tr:hover{background:var(--c2)}.dtbl td:last-child{text-align:center}
 .tag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10.5px;font-weight:700;background:var(--alt);color:var(--adk)}
+.blk-nastha{background:#FFF3CD;color:#856404}.blk-bakery{background:#E8F9F0;color:#186A3B}
+.blk-namkeen{background:#E8F4FD;color:#1557A0}.blk-mithai{background:#FDE8F4;color:#8B0A50}
+.blk-subrm{background:#F2EDF8;color:#6B3FA0}
 .act{display:flex;gap:3px;justify-content:center}
 .alert{border-radius:var(--rs);padding:8px 12px;font-size:12px;display:flex;align-items:flex-start;gap:6px;margin-bottom:10px}
 .ai{background:var(--blt);border:1px solid #B0CCF0;border-left:4px solid var(--bl);color:#0A3080}
@@ -213,10 +216,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 <div class="pg" id="pg-materials">
   <div class="card"><div class="ch"><div class="cht"><span class="ico">➕</span>Add Raw Material</div></div>
     <div class="cb">
+      <div class="alert ai" style="margin-bottom:12px">💡 <div>
+        Select category → material saves to its sheet <strong>AND</strong> RM_Price block automatically.<br>
+        Nastha → <em>Nasta Raw</em> &nbsp;|&nbsp; Bakery → <em>Savli Bakery</em> &nbsp;|&nbsp; Namkeen → <em>Namkeen Raw</em> &nbsp;|&nbsp; Other → <em>New Added</em>
+      </div></div>
       <div class="g3" style="margin-bottom:10px">
         <div class="ff"><label>Item Name (English) *</label><input class="fi" id="mn" type="text" placeholder="e.g. Cashew"/></div>
         <div class="ff"><label>Item Name (Hindi)</label><input class="fi" id="mnh" type="text" placeholder="Auto-translated on save"/></div>
-        <div class="ff"><label>Category *</label><select class="fsel" id="mcat"><option value="">— Select —</option></select></div>
+        <div class="ff"><label>Category *</label><select class="fsel" id="mcat"><option value="">— Select Category —</option></select><span class="fhint">Saves to sheet + RM_Price block</span></div>
       </div>
       <div class="g2" style="margin-bottom:10px">
         <div class="ff"><label>Price / Rate (₹) *</label><input class="fi" id="mp" type="number" placeholder="850" min="0" step="0.01"/></div>
@@ -233,8 +240,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
         <input type="text" id="msearch" oninput="filterMats()" placeholder="Search…" style="flex:1;padding:6px 10px;border:1.5px solid var(--bd2);border-radius:var(--rs);font-family:inherit;font-size:12.5px;background:var(--c2);min-width:120px"/>
       </div>
     </div>
-    <!-- Staff view: No Rate/Price column shown -->
-    <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Name (Eng / Hindi)</th><th>Unit</th><th>Actions</th></tr></thead><tbody id="mtbody"></tbody></table></div>
+    <!-- Staff view: Category + Sheet name shown, no Price column -->
+    <div class="tw"><table class="dtbl"><thead><tr><th>Sr</th><th>Name (Eng / Hindi)</th><th>Category → Sheet</th><th>Unit</th><th>Actions</th></tr></thead><tbody id="mtbody"></tbody></table></div>
   </div>
 </div>
 
@@ -275,14 +282,18 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 <div class="mo" id="mo-rm"><div class="modal">
   <div class="motitle">✏️ Edit Material</div><button class="moclose" onclick="cmo('mo-rm')">✕</button>
   <input type="hidden" id="mrorig"/>
+  <input type="hidden" id="mrorigcat"/>
+  <div style="background:var(--blt);border:1px solid #B0CCF0;border-radius:var(--rs);padding:7px 11px;margin-bottom:10px;font-size:11.5px;color:var(--bl)">
+    ✏️ Saves to the selected <strong>Category Sheet</strong>. RM_Price auto-updates.
+  </div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="ff"><label>Name (English)</label><input class="fi" id="mrn" type="text"/></div>
     <div class="ff"><label>Name (Hindi)</label><input class="fi" id="mrnh" type="text"/></div>
-    <div class="ff"><label>Category</label><select class="fsel" id="mrc"><option value="">— Select —</option></select></div>
+    <div class="ff"><label>Category Sheet</label><select class="fsel" id="mrc"><option value="">— Select —</option></select></div>
     <div class="ff"><label>Unit</label><input class="fi" id="mru" type="text"/></div>
     <div class="ff"><label>Price/Unit (₹)</label><input class="fi" id="mrp" type="number" min="0" step="0.01"/></div>
   </div>
-  <div class="mofoot"><button class="btn bo" onclick="cmo('mo-rm')">Cancel</button><button class="btn ba" onclick="svRM()">💾 Save</button></div>
+  <div class="mofoot"><button class="btn bo" onclick="cmo('mo-rm')">Cancel</button><button class="btn ba" onclick="svRM()">💾 Save to Sheet</button></div>
 </div></div>
 
 <div class="mo" id="mo-oh"><div class="modal">
@@ -326,17 +337,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);font-si
 <div class="toast" id="toast"></div>
 
 <script>
-var G={fg:[],rm:[],recipes:{},subRm:{},oh:[],gst:{},rmCats:[],fgCats:[],ohSubCats:[]};
+var G={fg:[],rm:[],recipes:{},subRm:{},oh:[],gst:{},blocks:[],fgCats:[],ohSubCats:[]};
 
 // ── BOOT ──
 function boot(){
   google.script.run.withSuccessHandler(function(d){
-    G.fg=d.fg;G.rm=d.rm;G.oh=d.oh;G.gst=d.gst;G.rmCats=d.rmCats||[];
-    G.fgCats=d.fgCats||['Methai','Bakery','Namkeen'];
-    G.ohSubCats=d.ohSubCats||G.fgCats;
-    G.recipes={};Object.keys(d.recipes||{}).forEach(function(k){G.recipes[k]=d.recipes[k];});
-    G.subRm=d.subRm||{};
-    buildCatSel();buildRmCats();buildIngDL();buildOHSubCatSels();
+    applyData(d);
     document.getElementById('hs').style.display='none';
     document.getElementById('hb').style.display='block';
     renderStats(d);renderFGGrid(G.fg);buildRVSel();buildSRMViewSel();renderSRMList();
@@ -345,6 +351,17 @@ function boot(){
     document.getElementById('hb').style.display='block';
     toast(e.message||'Load error','err');
   }).getData();
+}
+
+function applyData(d){
+  G.fg=d.fg;G.rm=d.rm;G.oh=d.oh;G.gst=d.gst;
+  G.blocks=d.blocks||['Nastha','Bakery','Namkeen','Mithai'];
+  G.fgCats=d.fgCats||G.blocks;
+  G.ohSubCats=d.ohSubCats||G.blocks;
+  G.catSheetMap=d.catSheetMap||{Nastha:'Nasta Raw',Bakery:'Savli Bakery',Namkeen:'Namkeen Raw',Mithai:'Mithai Raw'};
+  G.recipes={};Object.keys(d.recipes||{}).forEach(function(k){G.recipes[k]=d.recipes[k];});
+  G.subRm=d.subRm||{};
+  buildCatSel();buildRmBlocks();buildIngDL();buildOHSubCatSels();
 }
 
 // ── NAV ──
@@ -372,7 +389,7 @@ function renderStats(d){
 
 // ── SELECTS ──
 function buildOHSubCatSels(){
-  var cats=G.ohSubCats||G.fgCats||['Methai','Bakery','Namkeen'];
+  var cats=G.ohSubCats||G.fgCats||['Nastha','Bakery','Namkeen','Mithai'];
   ['ohsubcat','mosc'].forEach(function(id){
     var s=document.getElementById(id);if(!s)return;
     s.innerHTML='<option value="">— All Products (Global) —</option>';
@@ -382,16 +399,32 @@ function buildOHSubCatSels(){
 function buildCatSel(){
   var s=document.getElementById('mofg-cat');
   s.innerHTML='<option value="">— Select —</option>';
-  Object.keys(G.gst).forEach(function(c){s.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+' ('+G.gst[c]+'%)</option>';});
+  G.fgCats.forEach(function(c){s.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+(G.gst[c]!==undefined?' (GST '+G.gst[c]+'%)':'')+'</option>';});
 }
-function buildRmCats(){
+// Block-aware selector — shows "Nastha → Nasta Raw" labels
+function buildRmBlocks(){
+  var catMap=G.catSheetMap||{};
   ['mcat','mrc'].forEach(function(id){
     var s=document.getElementById(id);if(!s)return;
-    s.innerHTML='<option value="">— Select —</option>';
-    G.rmCats.forEach(function(c){s.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+'</option>';});
+    s.innerHTML='<option value="">— Select Category —</option>';
+    G.blocks.forEach(function(c){
+      var sheetName=catMap[c]?catMap[c]:'';
+      var label=sheetName?esc(c)+' → '+esc(sheetName):esc(c);
+      s.innerHTML+='<option value="'+esc(c)+'">'+label+'</option>';
+    });
+    s.innerHTML+='<option value="Other">Other → New Added</option>';
   });
   var f=document.getElementById('mfilter');
-  if(f){f.innerHTML='<option value="">All Categories</option>';G.rmCats.forEach(function(c){f.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+'</option>';});}
+  if(f){
+    f.innerHTML='<option value="">All Categories</option>';
+    G.blocks.forEach(function(c){f.innerHTML+='<option value="'+esc(c)+'">'+esc(c)+'</option>';});
+    f.innerHTML+='<option value="Other">Other</option>';
+  }
+}
+function blkTag(cat){
+  var map={'Nastha':'blk-nastha','Bakery':'blk-bakery','Namkeen':'blk-namkeen','Mithai':'blk-mithai','Sub-RM':'blk-subrm'};
+  var cls=map[cat]||'';
+  return'<span class="tag'+(cls?' '+cls:'')+'" style="font-size:10.5px">'+esc(cat||'—')+'</span>';
 }
 function buildIngDL(cat){
   var dl=document.getElementById('ing-dl');
@@ -593,52 +626,55 @@ function rkey(e,inp){
   }
 }
 
-// ── COLLECT INGREDIENTS (same logic as Index.html) ──
+// ── ROBUST INGREDIENT COLLECTOR (matches Index.html) ──
 function getIngs(){
   var ings=[];
-  var rows=document.querySelectorAll('#ibody tr');
-  rows.forEach(function(tr){
+  document.querySelectorAll('#ibody tr').forEach(function(tr){
     var inputs=tr.querySelectorAll('input');
-    if(inputs.length<2)return;
-    var mat=inputs[0].value.trim();
-    var qty=parseFloat(inputs[1].value)||0;
-    var unit=inputs[2]?inputs[2].value.trim():'';
-    if(mat!==''&&qty>0){
-      if(unit==='')unit='Pcs';
-      ings.push({material:mat,qty:qty,unit:unit,rate:0});
+    if(!inputs||inputs.length<2)return;
+    var mat=String(inputs[0]?inputs[0].value||'':'').trim();
+    var qty=parseFloat(String(inputs[1]?inputs[1].value||'':'').trim())||0;
+    var unit=String(inputs[2]?inputs[2].value||'':'').trim()||'Kg';
+    if(mat&&qty>0){
+      if(!unit)unit='Kg';
+      ings.push({material:mat,qty:qty,unit:unit,rate:getRate(mat)});
     }
   });
   return ings;
 }
 
-// ── SAVE RECIPE (same logic as Index.html) ──
+// ── SAVE RECIPE BUTTONS ──
 function saveRec(andSaveSubRM){
   var name=document.getElementById('rec-fg').value.trim();
   var qty=parseFloat(document.getElementById('rec-qty').value)||0;
   var unit=document.getElementById('rec-unit').value;
   var ings=getIngs();
 
-  if(!name){toast('Pehle Product select karein','err');return;}
-  if(qty<=0){toast('Final Product Quantity zero nahi ho sakti','err');return;}
-  if(ings.length===0){toast('Ledger khali hai! Kam se kam 1 ingredient aur uski Qty daalein','err');return;}
+  if(!name){toast('Select a product first','err');return;}
+  if(qty<=0){toast('Batch Output Qty cannot be zero','err');return;}
+  if(ings.length===0){toast('Add at least 1 ingredient with Qty > 0','err');return;}
 
-  toast('Saving... Please wait');
+  toast(andSaveSubRM?'Saving Sub-RM recipe…':'Saving recipe…');
 
   if(andSaveSubRM){
-    google.script.run.withSuccessHandler(function(r){
-      toast(r.message,'ok');
-      if(typeof refreshAll==='function')refreshAll();
-    }).withFailureHandler(function(e){
-      toast('Save Failed: '+e.message,'err');
-    }).saveDualRecipe(name,ings,qty,unit);
+    var saveBtn=document.getElementById('btn-save-subraw');if(saveBtn)saveBtn.disabled=true;
+    google.script.run
+      .withSuccessHandler(function(r){
+        toast(r.message,'ok');if(saveBtn)saveBtn.disabled=false;
+        G.subRm[name]={name:name,outputQty:qty,outputUnit:unit,ingredients:ings};
+        refreshAll();
+      })
+      .withFailureHandler(function(e){toast('Save Failed: '+(e.message||e),'err');if(saveBtn)saveBtn.disabled=false;})
+      .saveDualRecipe(name,ings,qty,unit);
   }else{
-    google.script.run.withSuccessHandler(function(r){
-      toast(r.message,'ok');
-      G.recipes[name.toLowerCase()]={qty:qty,unit:unit,ingredients:ings};
-      document.getElementById('rec-banner').style.display='flex';
-    }).withFailureHandler(function(e){
-      toast('Save Failed: '+e.message,'err');
-    }).saveRecipe(name,ings,qty,unit,true);
+    google.script.run
+      .withSuccessHandler(function(r){
+        toast(r.message,'ok');
+        G.recipes[name.toLowerCase()]={qty:qty,unit:unit,ingredients:ings};
+        document.getElementById('rec-banner').style.display='flex';
+      })
+      .withFailureHandler(function(e){toast('Save Failed: '+(e.message||e),'err');})
+      .saveRecipe(name,ings,qty,unit,true);
   }
 }
 
@@ -651,55 +687,59 @@ function rstRec(){
   addR();addR();addR();
 }
 
-// ── SUB-RM LIST ──
+// ── SUB-RM LIST (Part 3 — shows normalized cost/unit) ──
 function renderSRMList(){
   var keys=Object.keys(G.subRm),el=document.getElementById('srmlist');
   if(!el)return;
   if(!keys.length){el.innerHTML='<div style="color:var(--t3);font-size:12px">No sub-raw materials yet.</div>';return;}
   var html='<div class="tw"><table class="dtbl"><thead><tr>'+
-    '<th>Sub-RM Name</th><th>Batch Output</th><th>Ingredients</th><th>Actions</th>'+
+    '<th>Sub-RM Name</th><th>Batch Yield</th><th>Total Batch Cost</th><th>Normalized Cost/Unit</th><th style="text-align:center">Actions</th>'+
     '</tr></thead><tbody>';
   keys.forEach(function(k){
     var s=G.subRm[k];
+    var totalBatchCost=0;
+    s.ingredients.forEach(function(g){var rate=getRate(g.material);totalBatchCost+=(parseFloat(g.qty)||0)*rate;});
     var oqty=parseFloat(s.outputQty)||1,ounit=s.outputUnit||'Kg';
-    var ingPreview=s.ingredients.slice(0,3).map(function(i){return esc(i.material);}).join(', ')+(s.ingredients.length>3?'…':'');
+    // Normalized Cost = Total Batch Cost / Total Raw Output Batch Yield Weight
+    var normalizedCpu=totalBatchCost/oqty;
     html+='<tr>'+
       '<td><strong>'+esc(s.name)+'</strong></td>'+
       '<td><span class="tag">'+oqty+' '+esc(ounit)+'</span></td>'+
-      '<td style="font-size:11px;color:var(--t3)">'+ingPreview+'</td>'+
+      '<td>'+fmt(totalBatchCost)+'</td>'+
+      '<td style="font-weight:900;color:var(--gn)">'+fmt(normalizedCpu)+' / '+esc(ounit)+'</td>'+
       '<td><div class="act">'+
         '<button class="btn bo bsm bico" onclick="editSRM(\''+esc(s.name)+'\')" title="Edit">✏️</button>'+
         '<button class="btn bd2c bsm bico" onclick="delSRM(\''+esc(s.name)+'\')" title="Delete">🗑️</button>'+
       '</div></td></tr>';
   });
-  html+='</tbody></table></div>';
-  el.innerHTML=html;
+  html+='</tbody></table></div>';el.innerHTML=html;
 }
 
 // ── SUB-RM MODAL ──
 function openSRM(){
-  document.getElementById('srm-mo-title').textContent='⚗️ Add Sub-Raw Material Recipe';
+  document.getElementById('srm-mo-title').textContent='⚗️ Add Sub-RM Recipe';
   document.getElementById('srm-save-btn').textContent='💾 Save Sub-RM';
-  document.getElementById('srm-name').value='';
-  document.getElementById('srm-body').innerHTML='';
-  if(document.getElementById('srm-oqty'))document.getElementById('srm-oqty').value='1';
+  document.getElementById('srm-save-btn').dataset.mode='add';
+  document.getElementById('srm-name').value='';document.getElementById('srm-name').readOnly=false;
+  document.getElementById('srm-body').innerHTML='';document.getElementById('srm-oqty').value='1';
   var p=document.getElementById('srm-cost-preview');if(p)p.style.display='none';
-  addSRow();addSRow();
-  omo('mo-srm');
+  addSRow();addSRow();omo('mo-srm');
 }
 
+// Part 3 — Full Inline Edit Engine
 function editSRM(name){
-  var s=G.subRm[name]||G.subRm[name.toLowerCase()];
-  if(!s)return;
-  document.getElementById('srm-mo-title').textContent='🔄 Update Sub-Raw Material Recipe';
-  document.getElementById('srm-save-btn').textContent='🔄 Update Sub-RM';
+  var s=G.subRm[name]||G.subRm[name.toLowerCase()];if(!s)return;
+  document.getElementById('srm-mo-title').textContent='🔄 Update Sub-RM: '+name;
+  document.getElementById('srm-save-btn').textContent='🔄 Update Sub Raw Material Recipe';
+  document.getElementById('srm-save-btn').dataset.mode='edit';
   document.getElementById('srm-name').value=s.name;
+  document.getElementById('srm-name').readOnly=true; // Lock name during edit
   document.getElementById('srm-oqty').value=s.outputQty;
   document.getElementById('srm-ounit').value=s.outputUnit;
+  // Load all nested ingredient rows back into form workspace
   var tbody=document.getElementById('srm-body');tbody.innerHTML='';
   s.ingredients.forEach(function(ing){addSRow(ing);});
-  omo('mo-srm');
-  updSRMPreview();
+  omo('mo-srm');updSRMPreview();
 }
 
 function addSRow(data){
@@ -729,39 +769,37 @@ function updSRMPreview(){
   if(st)st.textContent=fmt(total);if(sc)sc.textContent=fmt(cpu);if(sq)sq.textContent=oqty;
 }
 
-// ── SAVE SUB-RM (same logic as Index.html) ──
+// Part 3 — Robust saveSRM with mode awareness
 function saveSRM(){
   var name=document.getElementById('srm-name').value.trim();
   var oqty=parseFloat(document.getElementById('srm-oqty').value)||1;
   var ounit=document.getElementById('srm-ounit').value;
+  var mode=document.getElementById('srm-save-btn').dataset.mode||'add';
+  if(!name){toast('Sub-RM Name required','err');return;}
 
-  if(!name){toast('Sub-RM Name is required','err');return;}
-
+  // Robust row collection — guards against empty/null inputs
   var ings=[];
-  var rows=document.querySelectorAll('#srm-body tr');
-  rows.forEach(function(row){
+  document.querySelectorAll('#srm-body tr').forEach(function(row){
     var inputs=row.querySelectorAll('input');
-    if(inputs.length>=2){
-      var mat=inputs[0].value.trim();
-      var qty=parseFloat(inputs[1].value)||0;
-      var unit=inputs[2]?inputs[2].value.trim():'Kg';
-      if(mat&&qty>0){ings.push({material:mat,qty:qty,unit:unit});}
-    }
+    if(!inputs||inputs.length<2)return;
+    var mat=String(inputs[0]?inputs[0].value||'':'').trim();
+    var qty=parseFloat(String(inputs[1]?inputs[1].value||'':''))||0;
+    var unit=String(inputs[2]?inputs[2].value||'':'').trim()||'Kg';
+    if(mat&&qty>0)ings.push({material:mat,qty:qty,unit:unit});
   });
 
-  if(ings.length===0){toast('Please add at least one valid ingredient (Name & Qty > 0)','err');return;}
+  if(ings.length===0){toast('Add at least 1 ingredient with Qty > 0','err');return;}
 
-  toast('Saving Sub-RM...');
+  toast(mode==='edit'?'Updating Sub-RM…':'Saving Sub-RM…');
+  var saveBtn=document.getElementById('srm-save-btn');saveBtn.disabled=true;
   google.script.run
     .withSuccessHandler(function(r){
-      toast(r.message,'ok');
-      cmo('mo-srm');
+      toast(r.message,'ok');saveBtn.disabled=false;
+      document.getElementById('srm-name').readOnly=false;cmo('mo-srm');
       G.subRm[name]={name:name,outputQty:oqty,outputUnit:ounit,ingredients:ings};
-      renderSRMList();
-      buildIngDL();
-      if(typeof buildSRMViewSel==='function')buildSRMViewSel();
+      renderSRMList();buildIngDL();buildSRMViewSel();
     })
-    .withFailureHandler(function(e){toast('Save Failed: '+e.message,'err');})
+    .withFailureHandler(function(e){toast('Save Failed: '+(e.message||e),'err');saveBtn.disabled=false;})
     .saveSubRM(name,ings,true,oqty,ounit);
 }
 
@@ -773,11 +811,8 @@ function delSRM(name){
   }).withFailureHandler(fe).deleteSubRM(name);
 }
 
-// ── MATERIALS ──
-function renderMats(d){
-  document.getElementById('mcnt').textContent=d.length+' items';
-  filterMats();
-}
+// ── MATERIALS (Dual-Write: category sheet + RM_Price block, no Price column for staff) ──
+function renderMats(d){document.getElementById('mcnt').textContent=d.length+' items';filterMats();}
 function filterMats(){
   var cat=(document.getElementById('mfilter')||{}).value||'';
   var srch=((document.getElementById('msearch')||{}).value||'').toLowerCase();
@@ -787,35 +822,46 @@ function filterMats(){
     return true;
   });
   var tb=document.getElementById('mtbody');
-  if(!f.length){tb.innerHTML='<tr><td colspan="4" style="text-align:center;padding:18px;color:var(--t3)">No materials found.</td></tr>';return;}
-  // Staff view: no Price/Rate column
+  if(!f.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--t3)">No materials found.</td></tr>';return;}
+  var catMap=G.catSheetMap||{};
+  // Staff view: no Price column
   tb.innerHTML=f.map(function(r,i){
-    return'<tr><td style="color:var(--t3);font-size:11px">'+(i+1)+'</td>'+
+    var sheetName=catMap[r.category]||r.category;
+    return'<tr>'+
+      '<td style="color:var(--t3);font-size:11px">'+(i+1)+'</td>'+
       '<td><strong>'+esc(r.name)+'</strong>'+(r.nameHi?'<br><span style="font-size:11px;color:var(--t3)">'+esc(r.nameHi)+'</span>':'')+'</td>'+
+      '<td>'+blkTag(r.category)+'<br><span style="font-size:9.5px;color:var(--t3)">📄 '+esc(sheetName)+'</span></td>'+
       '<td><span class="tag">'+esc(r.unit)+'</span></td>'+
       '<td><div class="act">'+
-        '<button class="btn bo bsm bico" onclick="oRM(\''+esc(r.name)+'\')">✏️</button>'+
-        '<button class="btn bd2c bsm bico" onclick="dRM(\''+esc(r.name)+'\')">🗑️</button>'+
+        '<button class="btn bo bsm bico" onclick="oRM(\''+esc(r.name)+'\',\''+esc(r.category)+'\')">✏️</button>'+
+        '<button class="btn bd2c bsm bico" onclick="dRM(\''+esc(r.name)+'\',\''+esc(r.category)+'\')">🗑️</button>'+
       '</div></td></tr>';
   }).join('');
 }
 function addMat(){
-  var eng=document.getElementById('mn').value.trim(),hin=document.getElementById('mnh').value.trim(),cat=document.getElementById('mcat').value,price=document.getElementById('mp').value,unit=document.getElementById('mu').value.trim();
+  var eng=document.getElementById('mn').value.trim(),hin=document.getElementById('mnh').value.trim(),
+      cat=document.getElementById('mcat').value,price=document.getElementById('mp').value,unit=document.getElementById('mu').value.trim();
   if(!eng||!unit){toast('Name and Unit required','err');return;}
-  if(!cat){toast('Select category','err');return;}
-  var obj={name:eng,nameHi:hin,category:cat,unit:unit,price:parseFloat(price)||0};
+  if(!cat){toast('Select a Category','err');return;}
+  var catMap=G.catSheetMap||{};
+  var sheetName=catMap[cat]||cat;
+  var gstPct=G.gst[cat]||5;
+  var obj={name:eng,nameHi:hin,category:cat,unit:unit,price:parseFloat(price)||0,gst:gstPct};
+  toast('Saving to "'+sheetName+'" (cols F:I)…');
   google.script.run.withSuccessHandler(function(r){
-    toast(r.message,'ok');
-    if(r.nameHi)obj.nameHi=r.nameHi;
+    toast(r.message,'ok');if(r.nameHi)obj.nameHi=r.nameHi;
     document.getElementById('mn').value='';document.getElementById('mnh').value='';document.getElementById('mp').value='';
-    var ex=G.rm.find(function(x){return x.name.toLowerCase()===eng.toLowerCase();});
+    var ex=G.rm.find(function(x){return x.name.toLowerCase()===eng.toLowerCase()&&x.category===cat;});
     if(ex)Object.assign(ex,obj);else G.rm.push(obj);
     buildIngDL();renderMats(G.rm);
   }).withFailureHandler(fe).saveRM(obj,'add');
 }
-function oRM(name){
-  var r=G.rm.find(function(x){return x.name===name;});if(!r)return;
+function oRM(name,category){
+  var r=G.rm.find(function(x){return x.name===name&&(category?x.category===category:true);});
+  if(!r)r=G.rm.find(function(x){return x.name===name;});
+  if(!r)return;
   document.getElementById('mrorig').value=r.name;
+  document.getElementById('mrorigcat').value=r.category||'';
   document.getElementById('mrn').value=r.name;
   document.getElementById('mrnh').value=r.nameHi||'';
   document.getElementById('mrc').value=r.category||'';
@@ -824,24 +870,32 @@ function oRM(name){
   omo('mo-rm');
 }
 function svRM(){
-  var o=document.getElementById('mrorig').value,n=document.getElementById('mrn').value.trim(),
-      nh=document.getElementById('mrnh').value.trim(),cat=document.getElementById('mrc').value,
-      u=document.getElementById('mru').value.trim(),p=document.getElementById('mrp').value;
-  if(!n||!u){toast('Required','err');return;}
-  var obj={name:n,nameHi:nh,category:cat,unit:u,price:parseFloat(p)||0};
+  var oc=document.getElementById('mrorigcat').value;
+  var o=document.getElementById('mrorig').value;
+  var n=document.getElementById('mrn').value.trim(),nh=document.getElementById('mrnh').value.trim(),
+      cat=document.getElementById('mrc').value,u=document.getElementById('mru').value.trim(),p=document.getElementById('mrp').value;
+  if(!n||!u||!cat){toast('Required','err');return;}
+  var catMap=G.catSheetMap||{};
+  var sheetName=catMap[cat]||cat;
+  var gstPct=G.gst[cat]||5;
+  toast('Updating "'+sheetName+'" (cols F:I)…');
+  var obj={name:n,nameHi:nh,category:cat,unit:u,price:parseFloat(p)||0,gst:gstPct};
   google.script.run.withSuccessHandler(function(r){
-    toast('Updated','ok');cmo('mo-rm');
-    var idx=G.rm.findIndex(function(x){return x.name===o;});
-    if(idx>=0)G.rm[idx]=obj;else G.rm.push(obj);
+    toast(r.message,'ok');cmo('mo-rm');
+    G.rm=G.rm.filter(function(x){return!(x.name===o&&x.category===oc);});
+    G.rm.push(obj);
     buildIngDL();renderMats(G.rm);
   }).withFailureHandler(fe).saveRM(obj,'upsert');
 }
-function dRM(name){
-  if(!confirm('Delete "'+name+'"?'))return;
+function dRM(name,category){
+  var catMap=G.catSheetMap||{};
+  var sheetName=catMap[category]||category;
+  if(!confirm('Delete "'+name+'" from "'+sheetName+'"?'))return;
   google.script.run.withSuccessHandler(function(r){
-    toast(r.message,'ok');G.rm=G.rm.filter(function(x){return x.name!==name;});
+    toast(r.message,'ok');
+    G.rm=G.rm.filter(function(x){return!(x.name===name&&x.category===category);});
     buildIngDL();renderMats(G.rm);
-  }).withFailureHandler(fe).deleteRM(name);
+  }).withFailureHandler(fe).deleteRM(name,category);
 }
 
 // ── OVERHEADS ──
@@ -911,17 +965,18 @@ function dOH(cat,subCat){
     .deleteOverhead(cat,subCat||'');
 }
 
-// ── FAST SYNC ──
+// ── FAST SYNC (Part 4 — reads category sheets → rebuilds RM_Price → live update) ──
 function fastSync(){
   var btn=document.getElementById('syncbtn');
-  btn.disabled=true;btn.innerHTML='⏳ Syncing...';
-  toast('Syncing all prices...','info');
+  btn.disabled=true;btn.innerHTML='⏳ Syncing…';
+  toast('Reading Nasta Raw, Savli Bakery, Namkeen Raw… rebuilding RM_Price','info');
   google.script.run.withSuccessHandler(function(r){
     btn.disabled=false;btn.innerHTML='⚡ Update Rates';
-    toast(r.message,'ok');refreshAll();
+    toast(r.message,'ok');
+    if(r.rm&&r.rm.length){G.rm=r.rm;buildIngDL();renderMats(G.rm);renderSRMList();buildSRMViewSel();}
   }).withFailureHandler(function(e){
     btn.disabled=false;btn.innerHTML='⚡ Update Rates';
-    toast('Sync Failed','err');
+    toast('Sync Failed: '+(e.message||e),'err');
   }).updateAllRecipeRates();
 }
 
@@ -929,29 +984,26 @@ function fastSync(){
 function refreshAll(){
   var btn=document.getElementById('rbtn');btn.disabled=true;btn.textContent='⏳';
   google.script.run.withSuccessHandler(function(d){
-    G.fg=d.fg;G.rm=d.rm;G.oh=d.oh;G.fgCats=d.fgCats||G.fgCats;
-    G.ohSubCats=d.ohSubCats||G.fgCats;
-    G.recipes={};Object.keys(d.recipes||{}).forEach(function(k){G.recipes[k]=d.recipes[k];});
-    G.subRm=d.subRm||{};
-    buildIngDL();buildOHSubCatSels();renderFGGrid(G.fg);buildRVSel();buildSRMViewSel();
-    renderStats(d);renderSRMList();renderOH(G.oh);
+    applyData(d);renderFGGrid(G.fg);buildRVSel();buildSRMViewSel();
+    renderStats(d);renderSRMList();renderOH(G.oh);renderMats(G.rm);
     btn.disabled=false;btn.textContent='🔄 Refresh';toast('Refreshed','ok');
   }).withFailureHandler(function(){btn.disabled=false;btn.textContent='🔄 Refresh';toast('Refresh failed','err');}).getData();
 }
 
 // ── HELPERS ──
+function getSRMRate(name){
+  var key=name.toLowerCase(),srk=Object.keys(G.subRm).find(function(k){return k.toLowerCase()===key;});
+  if(!srk)return 0;
+  var s=G.subRm[srk],total=0,oq=s.outputQty||1;
+  s.ingredients.forEach(function(g){var r=G.rm.find(function(x){return x.name.toLowerCase()===g.material.toLowerCase();});if(r&&r.price>0)total+=g.qty*r.price;});
+  return oq>0?total/oq:total;
+}
 function getRate(matName){
   if(!matName)return 0;
   var k=matName.toLowerCase().trim();
   var rm=G.rm.find(function(r){return r.name&&r.name.toLowerCase()===k;});
   if(rm&&rm.price>0)return rm.price;
-  var srk=Object.keys(G.subRm).find(function(key){return key.toLowerCase()===k;});
-  if(srk){
-    var s=G.subRm[srk],total=0;
-    s.ingredients.forEach(function(g){var r=G.rm.find(function(x){return x.name.toLowerCase()===g.material.toLowerCase();});total+=(g.qty*(r?r.price:0));});
-    return s.outputQty>0?total/s.outputQty:total;
-  }
-  return 0;
+  return getSRMRate(matName);
 }
 function fmt(n){return'₹'+(parseFloat(n)||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -963,7 +1015,7 @@ function toast(msg,type){
   _tt=setTimeout(function(){e.classList.remove('on');},3200);
 }
 function omo(id){document.getElementById(id).classList.add('open');}
-function cmo(id){document.getElementById(id).classList.remove('open');}
+function cmo(id){document.getElementById(id).classList.remove('open');if(id==='mo-srm'){var sn=document.getElementById('srm-name');if(sn)sn.readOnly=false;}}
 document.querySelectorAll('.mo').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});});
 window.addEventListener('DOMContentLoaded',function(){boot();});
 </script>
